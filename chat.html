@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>drag image ---@kangwan</title>
+        <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <style rel="stylesheet" type="text/css">
+            body {
+                width: 100%;
+                height: 100%;
+                margin: 0px;
+                padding: 0px;
+                overflow: auto;
+                font-family: Arial, Helvetica, sans-serif;
+            } .Plist {
+                height: 55px;
+                color: black;
+                border-bottom: 1px solid #ccc;
+                width: 100%;
+                margin: 0px;
+                left: 0px;
+            }.paPic {
+                z-index: 3;
+            } .AccName {
+                left: 0px;
+                padding-left: 40px;
+                bottom: 19px;
+                margin: 0px;
+                position: relative
+            } .chateve {
+                left: 0px;
+                padding-left: 38px;
+                bottom: 9px;
+                margin: 0px;
+                position: relative
+            } .Hoster {
+                left: 0px;
+                padding-left: 40px;
+                bottom: 19px;
+                margin: 0px;
+                position: relative
+            } .AccUrl {
+                left: 9px;
+                top: 20px;
+                margin: 0px;
+                position: relative
+            } .chatArrow {
+                top: 10px;
+                left: 73%;
+                position: relative
+            } .chatArrow1 {
+                top: 17px;
+                padding-right: 55%;
+                position: relative
+            } .hosterPic {
+                top: 8px;
+                left: 5px;
+                position: relative
+            } .paPic {
+                top: 8px;
+                left: 5px;
+                position: relative
+            } .speakPic {
+                top: 15px;
+                left: 70%;
+                position: relative
+            }#toolbarup {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                background: url(img_titlebar_bg_h_landscape.png) #367cc9;
+                repeat-x;
+            
+            box-sizing:border-box;
+            
+            -webkit-box-sizing:border-box;
+            
+            width:
+                100%;
+            
+            height:
+                40px;
+            }#toolbardown {
+                position: fixed;
+                bottom: 0px;
+                left: 0px;
+                width: 100%;
+                height: 42px;
+                text-align: center;
+                background: url(img_titlebar_background_unselect_portrait.png) #000000 repeat-x;
+                z-index: 3;
+                overflow: hidden;
+            }
+            
+            h1 {
+                font-weight: bold;
+                font-size: 24px;
+                font-weight: bold;
+                overflow: hidden;
+                text-shadow: rgba(0, 0, 0, 0.9) 0px -1px 0;
+                text-align: center;
+                white-space: nowrap;
+                color: #FFFFFF;
+                margin: 6px 0;
+            } #my_meeting {
+                position: absolute;
+                left: 1%;
+                width: 80px;
+                height: 25px;
+                top: 5px;
+                font-family: Arial;
+                font-size: 15px;
+                color: #FFF;
+                padding: 2px;
+                text-align: center;
+                border: 1px solid #ddd;
+                border-bottom: 1.5px solid #ddd;
+                border-right: 1.5px solid #eee;
+                -webkit-border-radius: 5px;
+            } #exit {
+                position: absolute;
+                left: 85%;
+                width: 25px;
+                height: 25px;
+                top: 5px;
+                padding: 2px;
+                border: 1px solid #ddd;
+                border-bottom: 1.5px solid #ddd;
+                border-right: 1.5px solid #eee;
+                -webkit-border-radius: 5px;
+            }#voice {
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                top: 5px;
+                padding: 2px;
+                border: 1px solid #ddd;
+                border-bottom: 1.5px solid #ddd;
+                border-right: 1.5px solid #eee;
+                -webkit-border-radius: 5px;
+                left: 5%;
+            }#info {
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                top: 5px;
+                padding: 2px;
+                border: 1px solid #ddd;
+                border-bottom: 1.5px solid #ddd;
+                border-right: 1.5px solid #eee;
+                -webkit-border-radius: 5px;
+                left: 85%;
+            } #user {
+                position: inherit;
+                padding-left: 30%;
+                padding-right: 40%;
+                padding-top: 2px;
+                width: 25px;
+                height: 25px;
+            } #screen {
+                position: absolute;
+                top: 5px;
+                left: 25%;
+                width: 50%;
+                height: 70%;
+                border: 1px solid #ddd;
+                border-bottom: 1.5px solid #ddd;
+                border-right: 1.5px solid #eee;
+                -webkit-border-radius: 5px;
+            } #screen1 {
+                position: absolute;
+                left: 0px;
+                width: 32%;
+                height: 100%;
+                border: 0px;
+                -webkit-border-radius: 5px;
+            }#screen2 {
+                position: absolute;
+                left: 32%;
+                width: 36%;
+                height: 100%;
+                border: 0px;
+            }#screen3 {
+                position: absolute;
+                left: 68%;
+                width: 32%;
+                height: 100%;
+                border: 0px;
+                border-left: 0px;
+                -webkit-border-radius: 5px;
+            }#chat_content{
+            	position:absolute;
+				top:42px;
+            }#chat_input{
+            	position:absolute;
+				left:0px;
+				width:75%;
+            	bottom:43px;
+            }#chat_send{
+            	position:absolute;
+				right:5%;
+				width:15%;
+            	bottom:43px;
+            }
+        </style>
+        <script src="js_jquery-1.7.2.min.js">
+        </script>
+        <script src="js_nativebridge.js">
+        </script>
+        <script type="text/javascript">
+            
+            
+            var initpage = {
+                "type": "initpage",
+                "data": {
+                    "initpage": "initpage"
+                }
+            };
+            var dragging = false;
+            var startTop = 0;
+            var startLeft = 0;
+            var dragPosY = 0;
+            var dragPosX = 0;
+            var scrollY = 0;
+            var pdatas = "";
+            var username = "";
+            var host = "";
+            // var listNumChange= 0;
+            var Plist = new Array();
+            var FirstAdd = true;
+            var u = navigator.userAgent, app = navigator.appVersion;
+            var detectbrowser = (u.match(/AppleWebKit.*Mobile.*/));
+            
+            var initTime = 0;
+            // var nowTime      = 0;
+            var firstReceive = true;
+            var waitTime = 0;
+            var presenter = "";
+            
+            function getElem(id){
+                return document.getElementById(id);
+            }
+            
+            function trimPX(_px){
+                if (_px == null || _px == "") 
+                    return 0;
+                return parseInt(_px.substr(0, _px.lastIndexOf("px")));
+            }
+            
+            function hitInRect(hitX, hitY, rcLeft, rcTop, rcWidth, rcHeight){
+                // console.log("hitX"+hitX+",rcLeft"+rcLeft+",rcLeft+rcWidth"+(rcLeft+rcWidth));
+                //alert("hitY"+hitY+",rcTop"+(rcTop)+",rcTop-document.body.scrollTop"+(rcTop-document.body.scrollTop)+",rcTop+rcHeight-document.body.scrollTop"+(rcTop+rcHeight-document.body.scrollTop));
+                return (hitX >= (rcLeft - document.body.scrollLeft) && hitX < (rcLeft + rcWidth - document.body.scrollLeft) && hitY >= (rcTop - document.body.scrollTop) && hitY < (rcTop + rcHeight - document.body.scrollTop));
+                //  return (hitX>=rcLeft && hitX<rcLeft+rcWidth && hitY>=rcTop && hitY<rcTop+rcHeight);
+            }
+            
+            function hitInRectMobile(hitX, hitY, rcLeft, rcTop, rcWidth, rcHeight){
+                // console.log("hitX"+hitX+",rcLeft"+rcLeft+",rcLeft+rcWidth"+(rcLeft+rcWidth));
+                //  alert("hitY"+hitY+",rcTop"+(rcTop)+",rcTop-document.body.scrollTop"+(rcTop-document.body.scrollTop)+",rcTop+rcHeight-document.body.scrollTop"+(rcTop+rcHeight-document.body.scrollTop));
+                return (hitX >= (rcLeft) && hitX < (rcLeft + rcWidth) && hitY >= (rcTop) && hitY < (rcTop + rcHeight));
+                //  return (hitX>=rcLeft && hitX<rcLeft+rcWidth && hitY>=rcTop && hitY<rcTop+rcHeight);
+            }
+            
+            function imageDiv(){
+            
+                return getElem("Plist_ball");
+            }
+            
+            function fix(top){
+                var i = Math.ceil((top - 42) / 56);
+                //var j=(top-8)%56;
+                // var n=-1;
+                // if(j>0)  n=i+1;
+                
+                if (i == 1) {
+                    console.log("球在hoster处");
+                    // alert("球在hoster处");
+                    $('#Plist_ball').animate({
+                        top: 20,
+                        left: 13
+                    }, 2000);
+                }
+                else {
+                    console.log("球在第" + Plist[i - 1] + "加会者处");
+                    //alert("球在第" + Plist[i - 1] + "加会者处");
+                    $('#Plist_ball').animate({
+                        top: 42 + 56 * (i - 1) + 10,
+                        left: 13
+                    }, 2000);
+                }
+            }
+            
+            function preFixed(){
+            
+            }
+            
+            function printLogtest(content){
+                NativeBridge.log("", "", "", "", content);
+            }
+            
+            function printLog(type, level, module, functionName, content){
+                NativeBridge.log("HTML_LOG", "level", "Plist", functionName, content);
+            }
+            
+            function switchPlist(args){
+                printLog("", "", "", "switchPlist", "enter switchPlist ");
+                var functionName = args.type;
+                
+                switch (functionName) {
+                    case "EVENT_NATIVE_PLIST_PARTICIPANT_ADDED":
+                        OnPlistAdded(args);
+                        break;
+                    case "EVENT_NATIVE_PLIST_PARTICIPANT_REMOVED":
+                        OnPlistRemoved(args);
+                        break;
+                    case "EVENT_NATIVE_PLIST_PARTICIPANT_MODIFIED":
+                        OnPlistModified(args);
+                        break;
+                    case "EVENT_NATIVE_PLIST_PRESENTER_CHANGED":
+                        OnPresenterChanged(args);
+                        break;
+                    case "EVENT_NATIVE_PLIST_HOST_CHANGED":
+                        OnHostChanged(args);
+                        break;
+                    default:
+                }
+            }
+            
+            
+            function addPlist(args){
+                printLog("", "", "", "addPlist", "accept OnPlistAdded info");
+                if (args === null) {
+                
+                    $('<div class="Plist"   id="stanTest">' +
+                    '<img class="paPic"id="chatTest" src="icon_user_pc.png"></img>' +
+                    '<img class="speakPic" id="speakPicTest"src="Icon_Group_Microphone1.png"></img>' +
+                    '<img class="chatArrow"id="chatArrowTest" src="img_listArrow.png"></img>' +
+                    ' <h3  class="AccName" >Stan Test</h3></div>').appendTo('#toolbarup');
+                    //  Plist.push("stanTest");                            
+                }
+                else {
+                    //  if(args.ishost===true){
+                    //      if(host === username) {
+                    //        host += "(host,me)";
+                    //     }
+                    //  $('<div class="Plist" id="Hoster">' 
+                    //    + '<img class="hosterPic"id="chat" src="Icon_Group_Phone1.png"></img>' 
+                    //    + '<img class="speakPic"id="speakPic" src="Icon_Group_Microphone1.png"></img><img class="chatArrow"id="chatArrow" src="img_listArrow.png"></img>' 
+                    //    + ' <b><h3  class="Hoster"  >' 
+                    //    + host + '</h3></b>'      
+                    //    + '</div>').appendTo('body');
+                    //   Plist[0]=host;
+                    //  }
+                    // if(args.data.isParticipant===true){
+                    $('<div class="Plist"   id=' + args.ID + '>' +
+                    '<img class="paPic"id="chat' +
+                    args.ID +
+                    '" src="icon_user_pc.png"></img>' +
+                    '<img class="speakPic"id="speakPic' +
+                    args.ID +
+                    '"src="Icon_Group_Microphone1.png"></img>' +
+                    '<img class="chatArrow"id="chatArrow' +
+                    args.ID +
+                    '" src="img_listArrow.png"></img>' +
+                    ' <h3  class="AccName" >' +
+                    args.ID +
+                    '</h3></div>').appendTo('#toolbarup');
+                    // Plist.push(args.data.participantID);
+                }
+                
+                // for(var i = 0; i < datas.p.length; i++){
+                //     Plist[i+1]=datas.p[i].participantID;
+                
+                
+                
+                $('<div class="Plist" id="Hoster">' +
+                '<img class="chatArrow1"id="chatArrow" src="img_listArrow.png"></img>' +
+                ' <h3  class="chateve"  >Chat with Everyone</h3>' +
+                '</div>').appendTo('#toolbarup');
+                
+            }
+            
+            
+            function createPlist(args){
+                printLog("", "", "", "createPlist", "accept OnPlistAdded info");
+                initDrag();
+                $("#loading").hide();
+                
+                if (args === null) {
+                    $('<div class="Plist" id="Hoster">' +
+                    '<img class="hosterPic"id="chat" src="Icon_Group_Phone1.png"></img>' +
+                    '<img class="speakPic"id="speakPic" src="Icon_Group_Microphone1.png"></img><img class="chatArrow"id="chatArrow" src="img_listArrow.png"></img>' +
+                    ' <b><h3  class="Hoster"  >Stan(host,me) </h3></b>' +
+                    '</div>').appendTo('#toolbarup');
+                    Plist[0] = "Stan(host,me)";
+                    for (var i = 0; i < 18; i++) {
+                        $('<div class="Plist"   id="stan' + i + '">' +
+                        '<img class="paPic"id="chat' +
+                        i +
+                        '" src="icon_user_pc.png"></img>' +
+                        '<img class="speakPic" id="speakPic' +
+                        i +
+                        '"src="Icon_Group_Microphone1.png"></img>' +
+                        '<img class="chatArrow"id="chatArrow' +
+                        i +
+                        '" src="img_listArrow.png"></img>' +
+                        ' <h3  class="AccName" >Stan ' +
+                        i +
+                        '</h3></div>').appendTo('#toolbarup');
+                        Plist[i + 1] = "stan" + i;
+                    }
+                    
+                    console.log("div#Hoster" + $("div#Hoster").offset().top);
+                    // console.log("div#0top"+$("div#0").offset().top);
+                    // console.log("div#1top"+$("div#1").offset().top);
+                    // console.log("div#2top"+$("div#2").offset().top);
+                }
+                else {
+                    // pdatas = args.data;
+                    host = args[0].ID;
+                    if (host === username) {
+                        host += "(host,me)";
+                    }
+                    $('<div class="Plist" id="Hoster">' +
+                    '<img class="hosterPic"id="chat" src="Icon_Group_Phone1.png"></img>' +
+                    '<img class="speakPic"id="speakPic" src="Icon_Group_Microphone1.png"></img><img class="chatArrow"id="chatArrow" src="img_listArrow.png"></img>' +
+                    ' <b><h3  class="Hoster"  >' +
+                    host +
+                    '</h3></b>' +
+                    '</div>').appendTo('#toolbarup');
+                    for (var i = 1; i < args.length; i++) {
+                        $('<div class="Plist"   id=' + args[i].ID + '>' +
+                        '<img class="paPic"id="chat' +
+                        args[i].ID +
+                        '" src="icon_user_pc.png"></img>' +
+                        '<img class="speakPic"id="speakPic' +
+                        args[i].ID +
+                        '"src="Icon_Group_Microphone1.png"></img>' +
+                        '<div id="chatArrow' +
+                        args[i].ID +
+                        '"><img class="chatArrow" src="img_listArrow.png"></img></div>' +
+                        ' <h3  class="AccName" >' +
+                        args[i].ID +
+                        '</h3></div>').appendTo('#toolbarup');
+                    }
+                    // Plist[0]=host;
+                    // for(var i = 0; i < datas.p.length; i++){
+                    //     Plist[i+1]=datas.p[i].participantID;
+                    // }
+                }
+                
+                $('<div class="Plist" id="Hoster">' +
+                '<img class="chatArrow1"id="chatArrow" src="img_listArrow.png"></img>' +
+                ' <h3  class="chateve"  >Chat with Everyone</h3>' +
+                '</div>').appendTo('#toolbarup');
+                //******************************************************************************************************    
+                //****************************************************************************************************** 
+                //*********************************************testtest************************************************* 
+                //****************************************************************************************************** 
+                //******************************************************************************************************                
+                OnPlistRemoved(["stan2", "stan6"]);
+                
+                //OnPlistRemoved(["stanTest"]);
+                OnPlistModified(null);
+                OnPresenterChanged("stan0");
+                //******************************************************************************************************    
+                //****************************************************************************************************** 
+                //*********************************************testtest************************************************* 
+                //****************************************************************************************************** 
+                //******************************************************************************************************  
+            }
+            
+            
+            function OnPlistAdded(args){
+                var myDate = new Date();
+                printLog("", "", "", "OnPlistAdded", "accept OnPlistAdded info");
+                if (firstReceive) {//record the time when first receives date
+                    initTime = myDate.getSeconds();
+                    firstReceive = false;
+                    console.log("initTime" + myDate.getSeconds());
+                }
+                
+                if (args.data.isHost === true) {
+                    host = args.data.ID || undefined;
+                    console.log("host:" + host);
+                }
+                
+                if (args.data.isPresenter === true) {
+                    presenter = args.data.ID || undefined;
+                    console.log("presenter:" + presenter);
+                }
+                
+                Plist.push({
+                    "ID": args.data.participantID || args.data.host,
+                    "isHost": args.data.isHost,
+                    "isPresenter": args.data.isPresenter,
+                });
+                
+                if (FirstAdd) {
+                    //compute the waitTime which the page 
+                    waitTime += (myDate.getSeconds() - initTime) < 0 ? (myDate.getSeconds() - initTime + 60) : (myDate.getSeconds() - initTime);
+                    console.log("waitTime:" + waitTime);
+                    //refresh inittime
+                    initTime = myDate.getSeconds();
+                    console.log("initTime123" + myDate.getSeconds());
+                    if (waitTime > 4) {
+                        createPlist(null);
+                        FirstAdd = false;
+                    }
+                }
+                else {
+                    Plist.push("stanTest");
+                    addPlist(null);
+                    //addPlist(Plist[Plist.length-1]);
+                }
+            }
+            
+            
+            
+            function OnPlistRemoved(args){
+                printLog("", "", "", "OnPlistRemoved", "accept OnPlistRemoved info");
+                var tempID = "";
+                for (var i = 0; i < args.length; i++) {
+                    tempID = "div#" + args[i];
+                    // if(args===null){
+                    console.log("tempID:" + tempID);
+                    // $('div#stan2').remove();
+                    
+                    for (var j = 0; j < Plist.length; j++) {
+                        if (Plist[j] === args[i]) {
+                            Plist.splice(j, 1);
+                            $(tempID).remove();
+                            console.log(args[i] + "remove");
+                        }
+                        
+                    }
+                    // Plist.splice(3+1,1);
+                    //Plist.splice(7+1,1);
+                    // }
+                    // else{
+                    //  var delID=args.data.delID;
+                    //  var del="div#"+delID
+                    //  $(del).remove();
+                    // }
+                }
+            }
+            
+            function OnPlistModified(args){
+                printLog("", "", "", "OnPlistModified", "accept OnPlistModified info");
+                if (args === null) {
+                    $('#speakPic2').attr("src", "Icon_Group_MicrophoneActive1A.png");
+                    
+                }
+                else {
+                
+                }
+            }
+            
+            function OnPresenterChanged(args){
+                printLog("", "", "", "OnPresenterChanged", "accept OnPresenterChanged info");
+                // if(args===null){         
+                for (var j = 0; j < Plist.length; j++) {
+                    if (Plist[j] === args) {
+                        console.log("球初始化在" + Plist[j] + "加会者处，该与会者是Presenter");
+                        //alert("球初始化在" + Plist[j] + "加会者处，该与会者是Presenter");
+                        $('#Plist_ball').animate({
+                            top: 42 + 56 * j + 10,
+                            left: 13
+                        }, 2000);
+                    }
+                }
+            }
+            
+            //   else{
+            
+            //   }
+            // }
+            
+            
+            // window.addEventListener("load", initPage, false);
+            
+            function getInitData(){
+                //  var myDate     = new Date();
+                // console.log("myDate.getSeconds()"+myDate.getSeconds());
+                NativeBridge.callNative(this.initpage);
+                //OnPlistAdded(null);
+                OnPlistAdded({
+                    "type": "addPlistDate",
+                    "data": {
+                        "ID": "kangwan",
+                        "isHost": true,
+                        "isPresenter": true
+                    }
+                });
+                setTimeout('OnPlistAdded({"type":"addPlistDate", "data":{"ID":"kangwan", "isHost":true,"isPresenter":true}})', 5000);
+                //setTimeout("alert('alert')", 3000 );
+            }
+            
+            function initDrag(){
+                console.log("init");
+                // NativeBridge.callNative(this.initpage);
+                //OnPlistAdded(null);
+                //$('html, body').animate({scrollTop:$("div#test").offset().top}, 'slow');
+                
+                // $('html, body').animate({scrollTop:$("div#7").offset().top}, 2000);
+                
+                if (detectbrowser) {
+                    // alert("This is on mobile-Safari");
+                    imageDiv().addEventListener("touchstart", // start moving image
+             function(event){
+                        startTop = trimPX(imageDiv().style.top);
+                        startLeft = trimPX(imageDiv().style.left);
+                        var width = trimPX(imageDiv().style.width);
+                        var height = trimPX(imageDiv().style.height);
+                        // alert("choose");
+                        if (hitInRectMobile(event.pageX, event.pageY, startLeft, startTop, width, height)) {
+                            dragging = true;
+                            dragPosX = event.pageX;
+                            dragPosY = event.pageY;
+                            
+                            event.preventDefault();
+                            // disable default behavior of browser
+                        }
+                    }, false);
+                    
+                    imageDiv().addEventListener("touchmove", // moving image
+             function(event){
+                        if (dragging) {
+                            //alert("moving");
+                            imageDiv().style.cursor = "pointer";
+                            imageDiv().style.top = parseInt(startTop) + (event.pageY - dragPosY) + "px";
+                            imageDiv().style.left = parseInt(startLeft) + (event.pageX - dragPosX) + "px";
+                        }
+                        event.preventDefault();
+                    }, false);
+                    
+                    imageDiv().addEventListener("touchend", // stop moving image
+             function(event){
+                        // alert("touchend");
+                        
+                        if (!dragging) 
+                            return;
+                        dragging = false;
+                        imageDiv().style.cursor = "default";
+                        fix(trimPX(imageDiv().style.top));
+                        event.preventDefault();
+                    }, false);
+                }
+                else {
+                    //  console.log(getElem("_imageDiv"));
+                    //   alert("This is on windows-Safari");
+                    imageDiv().addEventListener("mousedown", // start moving image
+             function(event){
+                    
+                        // console.log("mageDiv().style.top"+imageDiv().style.top);
+                        startTop = trimPX(imageDiv().style.top);
+                        startLeft = trimPX(imageDiv().style.left);
+                        var width = trimPX(imageDiv().style.width);
+                        var height = trimPX(imageDiv().style.height);
+                        //this.scrollBaseY = document.body.scrollTop;
+                        
+                        if (hitInRect(event.clientX, event.clientY, startLeft, startTop, width, height)) {
+                            // console.log("mousedowndragging"+dragging);
+                            dragging = true;
+                            dragPosX = event.clientX;
+                            dragPosY = event.clientY;
+                            event.preventDefault();
+                            // disable default behavior of browser
+                        }
+                        // event.preventDefault(); // disable default behavior of browser
+                    }, false);
+                    
+                    imageDiv().addEventListener("mousemove", // moving image
+             function(event){
+                        // console.log("mousemovedragging"+dragging);
+                        // dragging=true;
+                        if (dragging) {
+                        
+                            imageDiv().style.cursor = "pointer";
+                            imageDiv().style.top = parseInt(startTop) + (event.clientY - dragPosY) + "px";
+                            imageDiv().style.left = parseInt(startLeft) + (event.clientX - dragPosX) + "px";
+                            event.preventDefault();
+                        }
+                        
+                    }, false);
+                    
+                    imageDiv().addEventListener("mouseup", // stop moving image
+             function(event){
+                        //console.log("mouseupdragging"+dragging);
+                        // console.log("document.body.scrollTop"+document.body.scrollTop);
+                        if (!dragging) 
+                            return;
+                        dragging = false;
+                        imageDiv().style.cursor = "default";
+                        console.log("imageDiv().style.top" + imageDiv().style.top);
+                        fix(trimPX(imageDiv().style.top));
+                        event.preventDefault();
+                        
+                    }, false);
+                }
+            }
+            
+            
+            $(document).ready(function(){
+            
+                $(".chatArrow").live("click", function(){
+                    // $(this).css({
+                    //   "background":"dodgerblue",
+                    //   "color":"white"});
+                    alert("click");
+                    
+                });
+                
+                $(".chatArrow1").live("click", function(){
+                    // $(this).css({
+                    //   "background":"dodgerblue",
+                    //   "color":"white"});
+                    alert("click1");
+                    
+                });
+                
+                $("div.Plist").live("mouseenter", function(){
+                    $(this).css({
+                        "background": "dodgerblue",
+                        "color": "white"
+                    });
+                    
+                });
+                
+                $("div.Plist").live("mouseleave", function(){
+                    $(this).css({
+                        "background": "whitesmoke",
+                        "color": "black"
+                    });
+                    
+                });
+                // $("div.Plist").live("touchstart",function(){
+                //    $(this).css({
+                //    "background":"dodgerblue",
+                //    "color":"white"});
+            
+                //  });
+            
+                // $("div.Plist").live("touchend",function(){
+                //    $(this).css({
+                //   "background":"whitesmoke",
+                //   "color":"blackscript
+            
+                //  });
+            
+            })
+            
+            function changeColor(id){
+                var m = document.getElementById(id);
+                m.addEventListener("touchstart", function(){
+                    m.style.cssText = "background-color :  rgba(0, 0, 0, 0.9)";
+                });
+                m.addEventListener("touchend", function(){
+                    m.style.removeProperty("background-color");
+                })
+            }
+            
+            function initTouch(){
+                changeColor("my_meeting");
+                changeColor("exit");
+                changeColor("voice");
+                changeColor("screen1");
+                changeColor("screen2");
+                changeColor("screen3");
+                changeColor("info");
+            }
+        </script>
+    </head>
+    <body onload="getInitData();initTouch">
+        <div id="toolbarup">
+            <h1>Participants</h1>
+            <div id="my_meeting">
+                My Meeting
+            </div>
+            <img id="exit" src="img_icon_toolbar_endmeeting.png"/>
+        </div>
+       <div id="chat_section">
+       		<div id="chat_content">adsfasdfasdfasd</div>
+			<input id="chat_input" type="text"/> <input id="chat_send" type="button" value="Send"/> 	
+       </div>
+        <div id="toolbardown">
+            <img id="voice" src="img_icon_toolbar_mutevoice.png"/>
+            <div id="screen">
+                <div id="screen1">
+                    <img id ="user" src="img_titlebar_icon_presentation_landscape.png"/>
+                </div>
+                <div id="screen2">
+                    <img id ="user" src="img_titlebar_icon_participant_landscape.png"/>
+                </div>
+                <div id="screen3">
+                    <img id ="user" src="img_icon_user_pc.png"/>
+                </div>
+            </div><img id="info" src="img_icon_toolbar_viewinfo.png"/>
+        </div>
+    </body>
+</html>

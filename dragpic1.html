@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>drag image ---@kangwan</title>
+   <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <style rel="stylesheet" type="text/css" >
+  body{
+    overflow:auto;
+  }
+/*第一个top8PX，下一个64px，在下一个120，依次加56 */
+   .Acc {
+
+                height: 55px;
+                color: black;
+                border-bottom: 1px solid #ccc;
+                width: 110%;
+            }
+            .AccName {
+                left: 9px;
+                top: 15px;
+                margin: 0px;
+                //height: 20px;
+                position: relative
+            }
+            .AccUrl {
+                left: 9px;
+                top: 20px;
+                margin: 0px;
+                //height: 20px;
+                position: relative
+            }
+            .chatPic{
+              bottom:10px;
+left:290px; position: relative
+            }
+
+  </style>
+      <script  src="js_jquery-1.7.2.min.js"></script>
+  <script type="text/javascript">
+
+
+    var dragging = false;
+    var startTop = 0; // top is a Key Word in Chrome and Opera
+    var startLeft = 0;
+    var dragPosY = 0;
+    var dragPosX = 0;
+    var scrollY = 0;
+    var thisBaseX= 0;
+  var thisBaseY= 0;
+  var pageBaseX= 0;
+  var pageBaseY= 0;
+  var scrollBaseY= 0;
+   
+    var u = navigator.userAgent, app = navigator.appVersion;
+    var detectbrowser=(u.match(/AppleWebKit.*Mobile.*/));
+
+    function getElem (id) {
+      return document.getElementById(id);
+    }
+
+    function trimPX (_px) {
+      if(_px==null || _px=="")
+        return 0;
+      return parseInt(_px.substr(0, _px.lastIndexOf("px")));
+    }
+
+    function hitInRect (hitX, hitY, rcLeft, rcTop, rcWidth, rcHeight) {
+     // console.log("hitX"+hitX+",rcLeft"+rcLeft+",rcLeft+rcWidth"+(rcLeft+rcWidth));
+     //alert("hitY"+hitY+",rcTop"+(rcTop)+",rcTop-document.body.scrollTop"+(rcTop-document.body.scrollTop)+",rcTop+rcHeight-document.body.scrollTop"+(rcTop+rcHeight-document.body.scrollTop));
+      return (hitX>=(rcLeft-document.body.scrollLeft) && hitX<(rcLeft+rcWidth-document.body.scrollLeft) && hitY>=(rcTop-document.body.scrollTop) && hitY<(rcTop+rcHeight-document.body.scrollTop));
+    //  return (hitX>=rcLeft && hitX<rcLeft+rcWidth && hitY>=rcTop && hitY<rcTop+rcHeight);
+    }
+
+ function hitInRectMobile (hitX, hitY, rcLeft, rcTop, rcWidth, rcHeight) {
+     // console.log("hitX"+hitX+",rcLeft"+rcLeft+",rcLeft+rcWidth"+(rcLeft+rcWidth));
+   //  alert("hitY"+hitY+",rcTop"+(rcTop)+",rcTop-document.body.scrollTop"+(rcTop-document.body.scrollTop)+",rcTop+rcHeight-document.body.scrollTop"+(rcTop+rcHeight-document.body.scrollTop));
+      return (hitX>=(rcLeft) && hitX<(rcLeft+rcWidth) && hitY>=(rcTop) && hitY<(rcTop+rcHeight));
+    //  return (hitX>=rcLeft && hitX<rcLeft+rcWidth && hitY>=rcTop && hitY<rcTop+rcHeight);
+    }
+    // function outerDiv () {
+    //   return getElem("_outerDiv");
+    // }
+
+    function imageDiv () {
+     
+      return getElem("Plist_ball");
+    }
+
+    function fix(){
+
+    }
+
+
+     function switchPlist(args){
+               
+              var functionName=args.type;
+             
+              switch(functionName){
+              case "EVENT_NATIVE_PLIST_PARTICIPANT_ADDED":
+                 OnPlistAdded(args);
+              break;
+              case "EVENT_NATIVE_PLIST_PARTICIPANT_REMOVED":
+                 OnPlistRemoved(args);
+              break;
+              case "EVENT_NATIVE_PLIST_PARTICIPANT_MODIFIED":
+                 OnPlistRemoved(args);
+              break;
+              case "EVENT_NATIVE_PLIST_PRESENTER_CHANGED":
+                 OnPresenterChanged(args);
+              break;
+              case "EVENT_NATIVE_PLIST_HOST_CHANGED":
+                 OnHostChanged(args);
+              break;
+              default:
+             }
+           }
+
+function OnPlistAdded(args){
+  if(args===null){
+  for(var i = 0; i < 18; i++) {
+                    $('<div class="Acc"   id='+i 
+                    + '>' +' <h3  class="AccName" >Stan ' 
+                    + i + '</h3>' + '<img class="chatPic"id="chat'+i+'" src="img_listArrow.png"></img></div>').appendTo('body');
+                }
+                
+
+}
+
+
+
+}
+   
+   // window.addEventListener("load", initPage, false);
+
+    function initPage () {
+console.log("init");
+ OnPlistAdded(null);
+        //$('html, body').animate({scrollTop:$("div#test").offset().top}, 'slow');
+
+    
+
+ 
+       // $('html, body').animate({scrollTop:$("div#7").offset().top}, 2000);
+       //   console.log("div#0top"+$("div#0").offset().top);
+       //   console.log("div#1top"+$("div#1").offset().top);
+       //   console.log("div#2top"+$("div#2").offset().top);
+    if(detectbrowser){
+   // alert("This is on mobile-Safari");
+      imageDiv().addEventListener("touchstart", // start moving image
+        function (event) {
+          startTop = trimPX(imageDiv().style.top);
+          startLeft = trimPX(imageDiv().style.left);
+          var width = trimPX(imageDiv().style.width);
+          var height = trimPX(imageDiv().style.height);
+         // alert("choose"); 
+          if (hitInRectMobile(event.pageX, event.pageY, startLeft, startTop, width, height)) {
+            dragging = true;
+            dragPosX = event.pageX;
+            dragPosY = event.pageY;
+           
+            event.preventDefault(); // disable default behavior of browser
+          }
+        },
+        false
+      );
+
+      imageDiv().addEventListener("touchmove", // moving image
+        function (event) {
+          if (dragging){
+            //alert("moving");
+            imageDiv().style.cursor="pointer";
+            imageDiv().style.top = parseInt(startTop)+(event.pageY - dragPosY) + "px";
+            imageDiv().style.left = parseInt(startLeft)+(event.pageX - dragPosX) + "px";
+          }
+          event.preventDefault();
+        },
+        false
+      );
+
+      imageDiv().addEventListener("touchend", // stop moving image
+        function (event) {
+          // alert("touchend");
+            
+           if(!dragging) return;
+          dragging = false;
+          imageDiv().style.cursor="default";          
+          event.preventDefault();
+        },
+        false
+      );
+    }
+    else{
+     //  console.log(getElem("_imageDiv"));
+   //   alert("This is on windows-Safari");
+      imageDiv().addEventListener("mousedown", // start moving image  
+        function (event) {  
+        
+        // console.log("mageDiv().style.top"+imageDiv().style.top);
+          startTop = trimPX(imageDiv().style.top);  
+          startLeft = trimPX(imageDiv().style.left);  
+          var width = trimPX(imageDiv().style.width);  
+          var height = trimPX(imageDiv().style.height);  
+            this.scrollBaseY = document.body.scrollTop;
+           
+          if (hitInRect(event.clientX, event.clientY, startLeft, startTop, width, height)) {  
+            // console.log("mousedowndragging"+dragging);
+            dragging = true;  
+            dragPosX = event.clientX;  
+            dragPosY = event.clientY;  
+            event.preventDefault(); // disable default behavior of browser
+          }  
+          // event.preventDefault(); // disable default behavior of browser  
+        },  
+        false  
+      );  
+  
+      imageDiv().addEventListener("mousemove", // moving image  
+        function (event) {  
+          // console.log("mousemovedragging"+dragging);
+          // dragging=true;
+          if (dragging){  
+           
+            imageDiv().style.cursor="pointer";  
+            imageDiv().style.top = parseInt(startTop)+(event.clientY - dragPosY) + "px";  
+            imageDiv().style.left = parseInt(startLeft)+(event.clientX - dragPosX) + "px";  
+event.preventDefault();  
+          }  
+          
+        },  
+        false  
+      );  
+  
+      imageDiv().addEventListener("mouseup", // stop moving image  
+        function (event) {  
+           //console.log("mouseupdragging"+dragging);
+           // console.log("document.body.scrollTop"+document.body.scrollTop);
+           if(!dragging) return;
+       //   console.log("mouseup"+parseInt(startTop)+(event.clientY - dragPosY) +(parseInt(document.body.scrollTop) - self.scrollBaseY));
+          dragging = false;  
+          imageDiv().style.cursor="default";    
+
+          event.preventDefault(); 
+        
+        },  
+        false  
+      );  
+    }
+  }
+  </script>
+</head  >
+<body onload="initPage()">
+  <div
+  ontouchstart="touchStart(event);"
+  ontouchmove="touchMove(event);"
+  ontouchend="touchEnd(event);"
+  ontouchcancel="touchCancel(event);"
+></div>
+ 
+    <div id="Plist_ball" style="z-index:0; position:absolute; top:100px; left:100px; width:50px; height:50px;">
+      <img id="_imageObj" src="plist_ball.png"></img>
+    </div>
+   
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html5>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Welcome</title>
+        <meta name="description" content="" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <script type="text/javascript">
+            function changeColor(id){
+                var m = document.getElementById(id);
+                m.addEventListener("touchstart", function(){
+                    m.style.cssText = "background-color :  rgba(0, 0, 0, 0.9)";
+                });
+                m.addEventListener("touchend", function(){
+                    m.style.removeProperty("background-color");
+                })
+            }
+            
+            function initTouch(){
+                changeColor("my_meeting");
+                changeColor("exit");
+                changeColor("voice");
+                changeColor("screen1");
+                changeColor("screen2");
+                changeColor("screen3");
+                changeColor("info");
+            }
+        </script>
+        <style type="text/css">
+            body {
+                width: 100%;
+                height: 100%;
+                margin: 0px;
+                padding: 0px;
+                overflow: visible;
+            } #participant {
+                position: absolute;
+                top: 41px;
+                bottom: 40px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                z-index: 1;
+            } #toolbarup {
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                background: url(img_titlebar_bg_h_landscape.png) #367cc9;
+                repeat-x;
+            
+            box-sizing:border-box;
+            
+            -webkit-box-sizing:border-box;
+            
+            width:
+                100%;
+            
+            height:
+                40px;
+            
+            z-index:
+                3;
+            }#toolbardown {
+                position: fixed;
+                bottom: 0px;
+                left: 0px;
+                width: 100%;
+                height: 42px;
+                text-align: center;
+                background: url(img_titlebar_background_unselect_portrait.png) #000000 repeat-x;
+                z-index: 2;
+                overflow: hidden;
+            }
+            
+            h1 {
+                font-weight: bold;
+                font-size: 24px;
+                font-weight: bold;
+                overflow: hidden;
+                text-shadow: rgba(0, 0, 0, 0.9) 0px -1px 0;
+                text-align: center;
+                white-space: nowrap;
+                color: #FFFFFF;
+                margin: 6px 0;
+                z-index: 3;
+            } #my_meeting {
+                position: absolute;
+                left: 1%;
+                width: 80px;
+                height: 25px;
+                top: 5px;
+                font-family: Arial;
+                font-size: 15px;
+                color: #FFF;
+                padding: 2px;
+                text-align: center;
+                border: 1px solid #ddd;
+                border-bottom: 1.5px solid #ddd;
+                border-right: 1.5px solid #eee;
+                -webkit-border-radius: 5px;
+            } #exit {
+                position: absolute;
+                left: 85%;
+                width: 25px;
+                height: 25px;
+                top: 5px;
+                padding: 2px;
+                border: 1px solid #ddd;
+                border-bottom: 1.5px solid #ddd;
+                border-right: 1.5px solid #eee;
+                -webkit-border-radius: 5px;
+            }#voice {
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                top: 5px;
+                padding: 2px;
+                border: 1px solid #ddd;
+                border-bottom: 1.5px solid #ddd;
+                border-right: 1.5px solid #eee;
+                -webkit-border-radius: 5px;
+                left: 5%;
+            }#info {
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                top: 5px;
+                padding: 2px;
+                border: 1px solid #ddd;
+                border-bottom: 1.5px solid #ddd;
+                border-right: 1.5px solid #eee;
+                -webkit-border-radius: 5px;
+                left: 85%;
+            } #user {
+                position: inherit;
+                padding-left: 30%;
+                padding-right: 40%;
+                padding-top: 2px;
+                width: 25px;
+                height: 25px;
+            } #screen {
+                position: absolute;
+                top: 5px;
+                left: 25%;
+                width: 50%;
+                height: 70%;
+                border: 1px solid #ddd;
+                border-bottom: 1.5px solid #ddd;
+                border-right: 1.5px solid #eee;
+                -webkit-border-radius: 5px;
+            } #screen1 {
+                position: absolute;
+                left: 0px;
+                width: 32%;
+                height: 100%;
+                border: 0px;
+                -webkit-border-radius: 5px;
+            }#screen2 {
+                position: absolute;
+                left: 32%;
+                width: 36%;
+                height: 100%;
+                border: 0px;
+            }#screen3 {
+                position: absolute;
+                left: 68%;
+                width: 32%;
+                height: 100%;
+                border: 0px;
+                border-left: 0px;
+                -webkit-border-radius: 5px;
+            }
+        </style>
+        <script type="text/javascript">
+        </script>
+    </head>
+    <body onload='initTouch()'>
+        <div id="toolbarup">
+            <h1>Participants</h1>
+            <div id="my_meeting">
+                My Meeting
+            </div>
+            <img id="exit" src="img_icon_toolbar_endmeeting.png"/>
+        </div>
+        <div id="participant">
+            <div>
+                <h3>participants 1!!!</h3>
+                <hr/>
+            </div>
+			<div>
+                <h3>participants 1!!!</h3>
+                <hr/>
+            </div>
+			<div>
+                <h3>participants 1!!!</h3>
+                <hr/>
+            </div>
+			<div>
+                <h3>participants 1!!!</h3>
+                <hr/>
+            </div>
+			<div>
+                <h3>participants 1!!!</h3>
+                <hr/>
+            </div>
+			<div>
+                <h3>participants 1!!!</h3>
+                <hr/>
+            </div>
+			<div>
+                <h3>participants 1!!!</h3>
+                <hr/>
+            </div>
+			<div>
+                <h3>participants 1!!!</h3>
+                <hr/>
+            </div>
+			<div>
+                <h3>participants 1!!!</h3>
+                <hr/>
+            </div>
+        </div>
+        <div id="toolbardown">
+            <img id="voice" src="img_icon_toolbar_mutevoice.png"/>
+            <div id="screen">
+                <div id="screen1">
+                    <img id ="user" src="img_titlebar_icon_presentation_landscape.png"/>
+                </div>
+                <div id="screen2">
+                    <img id ="user" src="img_titlebar_icon_participant_landscape.png"/>
+                </div>
+                <div id="screen3">
+                    <img id ="user" src="img_icon_user_pc.png"/>
+                </div>
+            </div><img id="info" src="img_icon_toolbar_viewinfo.png"/>
+        </div>
+    </body>
+</html>

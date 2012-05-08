@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Join By Number</title>
+  		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <link rel="stylesheet" href="css_toolbar.css" type="text/css" />  
+        <link rel="stylesheet" href="css_screen-style.css" type="text/css" />  
+  		<link rel="stylesheet" href="css_textlist.css" type="text/css" />
+   		<link rel="stylesheet" href="css_buttons.css" type="text/css" />  
+        <script  src="js_jquery-1.7.2.min.js"></script>
+        <script  src="js_utilities.js"></script>
+        <script type="text/javascript">
+	        function checkname()
+	        {
+	           	var name = displayName.value.replace(/(^\s*)|(\s*$)/g, "");
+	           	var number = meetnumber.value.replace(/(^\s*)|(\s*$)/g, "");
+	           	var check = /^\d+$/;
+	           	var testNumber = check.test(number);
+	           	if(name.length >0 && number.length > 0 && testNumber)
+				{
+					joinbtn.disabled = false;
+				}else
+				{
+					joinbtn.disabled = true;
+					if(number.length == 0 || !testNumber)
+					{
+						if(!$("#meetnumber").is(":animated"))
+		           	 	{ 
+		                     $("#meetnumber").animate({top:5},100).animate({top:0},100)
+		                         .animate({top:-5},100).animate({top:0},100)
+		                         .animate({top:5},100).animate({top:0},80);
+		                 }
+					}
+				}
+           }
+           
+       		function joinnow()
+           	{  
+           		     
+           		var d = new Dialog();
+           		d.openLoadDialog("Connecting to the audio conference...");
+           		window.setTimeout(d.removeDialog,1000);
+           		
+	           	var name = displayName.value.replace(/(^\s*)|(\s*$)/g, "");
+	           	var number = meetnumber.value.replace(/(^\s*)|(\s*$)/g, "");
+	           	var joinArgs = new Object(); 
+	           	joinArgs.meetnumber = number;
+	           	joinArgs.displayname = name;
+	
+           	 	NativeBridge.call("JoinByNumber", [joinArgs], function (response) {
+                      
+                });
+				//open a dialog
+				
+           }
+        </script>
+        
+        
+        <style type="text/css">
+			.bar1 {
+			  -moz-transform:rotate(0deg) translate(0, -40px);
+			  -webkit-transform:rotate(0deg) translate(0, -40px);opacity:0.12;
+			}
+			.bar2 {
+			  -moz-transform:rotate(45deg) translate(0, -40px);
+			  -webkit-transform:rotate(45deg) translate(0, -40px);opacity:0.25;
+			}
+			.bar3 {
+			  -moz-transform:rotate(90deg) translate(0, -40px);
+			  -webkit-transform:rotate(90deg) translate(0, -40px);opacity:0.37;
+			}
+			.bar4 {
+			  -moz-transform:rotate(135deg) translate(0, -40px);
+			  -webkit-transform:rotate(135deg) translate(0, -40px);opacity:0.30;
+			}
+			.bar5 {
+			  -moz-transform:rotate(180deg) translate(0, -40px);
+			  -webkit-transform:rotate(180deg) translate(0, -40px);opacity:0.62;
+			}
+			.bar6 {
+			  -moz-transform:rotate(225deg) translate(0, -40px);
+			  -webkit-transform:rotate(225deg) translate(0, -40px);opacity:0.75;
+			}
+			.bar7 {
+			  -moz-transform:rotate(270deg) translate(0, -40px);
+			  -webkit-transform:rotate(270deg) translate(0, -40px);opacity:0.87;
+			}
+			.bar8 {
+			  -moz-transform:rotate(315deg) translate(0, -40px);
+			  -webkit-transform:rotate(315deg) translate(0, -40px);opacity:1;
+			}
+			
+			/* set up the three bar spinners */
+			#div1 {
+			  position:relative;
+			  left:20%;
+			  width:100px;
+			  height:100px;
+			  margin:25px;
+			  -moz-border-radius:100px;
+			  float:left;
+			  -moz-transform:scale(0.3);
+			  -webkit-transform:scale(0.3);
+			  -webkit-animation-name: rotateThis;
+  			  -webkit-animation-duration:1000ms;
+  			  -webkit-animation-iteration-count:infinite;
+  			  -webkit-animation-timing-function:linear;
+			}
+			#div1 div {
+			  width:10px;
+			  height:30px;
+			  background:#FFF;
+			  position:absolute;
+			  top:35px;
+			  left:45px;
+			}
+			/* shadows for the first spinner */
+			#div1 div {
+			  -moz-box-shadow:black 0 0 4px;
+			  -webkit-box-shadow:black 0 0 4px
+			}
+			@-webkit-keyframes rotateThis {
+	  			from {-webkit-transform:scale(0.3) rotate(0deg);}
+	  			to {-webkit-transform:scale(0.3) rotate(360deg);}
+			} 
+        </style>
+	</head>
+	<body class="inputsomebody">
+		<div class="toolbar">
+            <h1>
+                Join Now
+            </h1>
+            <a class="toolbarLeftBtn" onclick="window.history.back(-1)">Cancel</a>
+        </div>
+        <div><p class="blodblackshadow" style="margin-top: 60px;font-size: 18px;margin-bottom: 10px;">Join By Meeting Number</p></div>
+		<div class="panel" selected="true" >
+		  <ul>                                                                          
+			<li>
+				<fieldset>
+					<input type="text" name="Number" placeholder="Meeting Number" autocomplete="on" oninput=checkname() id="meetnumber" style="position:relative;"/>
+				</fieldset>
+			</li>
+			<li>
+				<fieldset>
+					<input type="text" name="displayName" placeholder="Display Name" autocomplete="on" oninput=checkname() id="displayName" style="position:relative;"/>
+				</fieldset>
+			</li>
+		  </ul>
+		</div>
+		<div><p class="blackshadow" style="font-size: 16px;margin-bottom: 10px;text-align:center;">The display name is used in the participant list</p></div>
+		<div style="text-align: center"><button class="greenButton" disabled=true id="joinbtn" onclick=joinnow()>Join Meeting</button></div>
+		<div><p class="blodblackshadow" style="margin-top: 20px;font-size: 18px;margin-bottom: 10px;">Join By Email or Calendar</p></div>
+		<div><p class="blackshadow" style="font-size: 16px;margin-bottom: 10px;text-align:center;">If you have received an invitation email for joining a WebEx meeting, go to the email and click the appropriate link to join the meeting.</p></div>
+		
+		
+		
+	</body>
+</html>
+
+

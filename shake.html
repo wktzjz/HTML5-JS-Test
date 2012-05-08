@@ -1,0 +1,52 @@
+<html>
+<head>
+<style>
+
+</style>
+</head>
+<body>
+<div id="header">
+	<div id="container"></div>
+</div>
+<script type="text/javascript">
+if (window.DeviceMotionEvent) {
+	window.addEventListener('devicemotion', deviceMotionHandler, false);
+} 
+
+var SHAKE_THRESHOLD = 800;
+var lastUpdate = 0;
+var x, y, z, last_x, last_y, last_z;
+
+function deviceMotionHandler(eventData) {
+  // Grab the acceleration including gravity from the results
+  var acceleration = eventData.accelerationIncludingGravity;
+
+  var curTime = new Date().getTime();
+
+  if ((curTime - lastUpdate) > 100) {
+
+      var diffTime = (curTime - lastUpdate);
+      lastUpdate = curTime;
+
+      x = acceleration.x;
+      y = acceleration.y;
+      z = acceleration.z;
+
+      var speed = Math.abs(x+y+z-last_x-last_y-last_z) / diffTime * 10000;
+
+	  document.getElementById("container").innerHTML = document.getElementById("container").innerHTML + "<br />" + speed;
+      
+	  if (speed > SHAKE_THRESHOLD) {
+			alert("shaked!");
+      }
+      last_x = x;
+      last_y = y;
+      last_z = z;
+    } 
+
+}
+</script>
+<div id="footer">
+</div>
+</body>
+</html>

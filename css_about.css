@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+#bkText1{
+	font-size: 45pt;
+	color:#FFFFFF;
+	letter-sapcing:3mm;
+	margin-top:2cm;
+	white-space:nowrap;
+	text-align:center;
+}
+#bkText{
+	font-size:16pt;
+	color:#FFFFFF;
+	margin-left:6cm;
+	text-align:center;
+}
+
+#bkText2{
+	font-size: 12pt;
+	color:#FFFFFF;
+	letter-sapcing:3mm;
+	margin-top:0.3cm;
+	white-space:nowrap;
+	text-align:center;
+}
+#bkText3{
+	margin-top:1cm;
+	color:#FFFFFF;
+	white-space:nowrap;
+	text-align: center;
+	text-align:center;
+}
+#bkText4{
+	color:#FFFFFF;
+	white-space:nowrap;
+	text-align:center;
+	
+}
+#bkText5{
+	color:#5FC4FF;
+	white-space:nowrap;
+	margin-top:18px;
+	text-align:center;
+	
+}
+#bkImage1 img{ 
+	width:120px;
+	height:120px;
+	margin-top:0.5cm;
+	-webkit-box-reflect: below -10px -webkit-gradient(linear, 0 0,0 100%, 
+	from(rgba(255,255,255,0)), color-stop(.5,transparent),to(rgba(0,0,0,0.5)));
+}
+
+#bkimage2 img{
+	width:54px;
+	height:28px
+	vertical-align:middle;
+	margin-top:0.5cm;
+}

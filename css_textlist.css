@@ -1,0 +1,50 @@
+.panel > ul 
+{ 
+	margin:5px 0 5px 0; 
+	padding:0; 
+	list-style:none; 
+	-webkit-border-radius:0; 
+	border-width:0; 
+	background-color:transparent; 
+}
+.panel > ul > li 
+{ 
+	margin:0; 
+	padding:0; 
+	border-width:0; 
+}
+
+.panel > ul > li fieldset
+{ 
+	margin:0; border:1px solid #aaa; 
+	border-bottom-width:0 !important; 
+	background-color:#fff; 
+	margin-top:-1px; 
+}
+
+.panel > ul > li:first-child fieldset
+{ 
+	-webkit-border-top-right-radius:10px; 
+	-webkit-border-top-left-radius:10px; 
+}
+.panel > ul > li:last-child fieldset
+{ 
+	-webkit-border-bottom-right-radius:10px; 
+	-webkit-border-bottom-left-radius:10px; 
+	border-bottom-width:1px !important; 
+}
+
+fieldset input
+{
+	background:none;
+	border: 0;
+	height:30px;
+	width: 95%;
+	padding: 4px;
+}
+
+.panel > ul > li fieldset
+{ 
+	padding: 6px;
+	text-align: center;
+}

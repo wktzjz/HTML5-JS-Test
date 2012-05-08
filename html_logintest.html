@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+        Remove this if you use the .htaccess -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Login</title>
+        <meta name="description" content="" />
+        <meta name="author" content="kangwan" />
+        <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="css_toolbar.css" type="text/css" />
+        <!--  <link rel="stylesheet" href="css_screen-style.css" type="text/css" />
+        <link rel="stylesheet" href="css_buttons.css" type="text/css" /> -->
+        <script  src="js_jquery-1.7.2.min.js"></script>
+        <script  src="PageSlide.js"></script>
+        <script  src="js_nativebridge.js"></script>
+        <style type="text/css">
+            body {
+                overflow: auto;
+                padding: 0px;
+                margin: 0px;
+                background: whitesmoke;
+                font-family: Arial, Helvetica, sans-serif;
+                width: 95%;
+
+                position: relative;
+                -webkit-transition: left .4s ease-out;
+            }
+            /*
+             #cancel {
+             -webkit-appearance:button;
+             margin-left: 13px;
+             margin-top: 7px;
+             -webkit-border-radius: 4px;   
+             border: 1px inset blue;
+
+             background: -webkit-gradient(linear, left top, left bottom, from(deepskyblue),  to(mediumblue));
+             // background: dodgerblue;
+             height: 20px;
+             width: 55px;
+             left: 0px;
+             top: 0px;
+             position: absolute;
+             font-size: 75%;
+             }
+             #backicon {
+             display:none;
+             -webkit-appearance:button;
+             margin-left: 13px;
+             margin-top: 7px;
+             -webkit-border-radius: 4px;
+             border: 1px inset blue;
+
+             background: -webkit-gradient(linear, left top, left bottom, from(deepskyblue),  to(mediumblue));
+             // background: dodgerblue;
+             height: 20px;
+             width: 55px;
+             left: 0px;
+             top: 0px;
+             position: absolute;
+             font-size: 75%;
+             }*/
+
+            #input1 {
+                background: white;
+                left: 6px;
+                top: 29px;
+                width: 100%;
+                position: relative;
+                border: 1px solid gray;
+                -webkit-border-radius: 10px;
+                height: 43px;
+            }
+            #signinnote {//
+                left: 15px;
+                top: 40px;
+                position: relative;
+            }
+            #backbutton {
+                top: 20px;
+                left: 7px;
+                position: relative;
+                height: 40px;
+                width: 49%;
+                -webkit-border-radius: 8px;//
+                border: 1px hidden gray;
+                background: -webkit-gradient(linear, left top, left bottom, from(white),  to(lightgray));
+            }
+            #signbutton {
+                top: 20px;
+                left: 13px;
+                position: relative;
+                height: 40px;
+                width: 49%;
+                -webkit-border-radius: 8px;//
+                border: 1px hidden gray;
+                background: -webkit-gradient(linear, left top, left bottom, from(white),  to(lightgray));
+            }
+            #cancelbutton {
+                top: 10px;
+                left: 8px;
+                position: relative;
+                height: 40px;
+                width: 49%;
+                -webkit-border-radius: 8px;//
+                border: 1px hidden gray;
+                background: -webkit-gradient(linear, left top, left bottom, from(white),  to(lightgray));
+            }
+            #note1 {//
+                fone-size: 130%;
+                display: none;
+                left: 9px;
+                top: 30px;
+                width: 90%;
+                position: relative;
+                padding: 10px 15px 10px 15px;
+                background: lemonchiffon;
+                -webkit-border-radius: 15px;
+                height: 55px;
+            }
+            /*
+             #infoicon {
+
+             left: 17px;
+             top: 180px;
+             position: relative;
+             }*/
+
+            #next1 {
+                display: none;
+                top: 50px;
+                position: relative;
+                height: 40px;
+                width: 95%;
+                -webkit-border-radius: 8px;//
+                border: 1px hidden gray;
+                background: -webkit-gradient(linear, left top, left bottom, from(white),  to(lightgray));
+            }
+            #enterWebexURL {
+                display: none;
+                top: 40px;
+                position: relative;
+            }
+            #showp {
+                display: none;
+                left: 10px;
+                top: 30px;
+                position: relative;
+            }
+            #section2 {
+                display: none;//
+                left: 9px;//
+                border-bottom: 1px solid #ccc;
+                position: relative;
+            }
+            /*
+             #Acc1:hover{
+             background : dodgerblue;
+             color: white
+             }
+             #Acc2:hover{
+             background : dodgerblue;
+             color: white
+             }*/
+            .Acc {
+                height: 75px;
+                color: black;
+                border-bottom: 1px solid #ccc;
+                width: 110%;
+            }
+            .AccName {
+                left: 9px;
+                top: 15px;
+                margin: 0px;//
+                height: 20px;
+                position: relative
+            }
+            .AccUrl {
+                left: 9px;
+                top: 25px;
+                margin: 0px;//
+                height: 20px;
+                position: relative
+            }
+
+
+/*
+           div.Acc:hover {
+                background: dodgerblue;
+                color: white
+            }*/
+
+        </style>
+        <script type="text/javascript">
+            var Acctype = 1;
+            // determine the type of the email-address so the page can change to what is needed
+            var flag = 0;
+            // determine which page is shown now
+            var flag1 = 0;
+            // determine if the alert should be "sign in through your corporate web-site"or something else
+            var flag2 = 0;
+            // ShowPassword Flag
+            var Ifload = 0;
+            var username = "";
+            var password = "";
+            var pwdRight = 0;
+            //If the password is right or not,sent back from Stream or Fox;
+            var AccLink = new Array();
+            //used to store the web-sites to which the user could link
+            var checkacctimes = 0;
+
+            var useremail = new Object();
+            var account = new Object();
+
+            NativeBridge.iftest=1;
+
+            //email-address check
+            function checkinfo() {
+                username = $("#username").val();
+                var emailcheck = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                var sitecheck;
+
+                if((!username.match(emailcheck)) || (username === "")) {
+
+                    if(document.getElementById("signbutton").style.color === "gray") {
+                        document.getElementById("signbutton").disabled = "disabled";
+                        //document.getElementById("signbutton").style.color="gray";
+                        $("#signbutton").css("color", "gainsboro");
+                    }
+
+                    if(flag1 === 0) {
+                        console.log('Note\n\nPlease enter correct E_mail!');
+                    }
+                    if(flag1 === 1) {
+                        console.log('You are required to sign in through your corporate website\n\nPlease enter correct WebSite!');
+                    }
+
+                } else {
+                    document.getElementById("signbutton").disabled = "";
+                    //document.getElementById("signbutton").style.color="gray";
+                    $("#signbutton").css("color", "gray");
+                }
+            }
+
+            function checkemail() {
+
+                if(signbutton.disabled === true) {
+
+                    if(!$("#input1").is(":animated")) {
+                        console.log("wrong name");
+                        $("#input1")
+                        .animate({ top : 5}, 150)
+                        .animate({top : 45}, 150)
+                        .animate({top : 15}, 150)
+                        .animate({top : 38}, 130)
+                        .animate({top : 25}, 100)
+                        .animate({top : 30}, 80);
+                    }
+                }
+            }
+
+            //password check  NOT-YET_-DONE need to know some info to complete it!!!!!!!!!
+            function checkinfo1() {
+                password = $("#password").val();
+                console.log("password=" + password);
+                var pswcheck = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                if((password === "") || (password.length < 6)) {
+                    if(document.getElementById("signbutton").style.color === "gray") {
+                        document.getElementById("signbutton").disabled = "disabled";
+                        //document.getElementById("signbutton").style.color="gray";
+                        $("#signbutton").css("color", "gainsboro");
+                    }
+                    console.log('Note\n\nPlease enter correct password!');
+
+                } else {
+                    document.getElementById("signbutton").disabled = "";
+                    //document.getElementById("signbutton").style.color="gray";
+                    $("#signbutton").css("color", "gray");
+                }
+            }
+
+            function back() {
+                if(flag === 0) {
+                    self.location = 'html_welcomehome.html';
+                }
+                if(flag1 === 1 || flag === 1) {
+                    self.location = 'html_logintest.html';
+                }
+                //  else {
+                //     window.history.back(-1);
+                //     console.log("Page Back");
+                // }
+
+            }
+
+            function setIfload() {
+                Ifload = 1;
+            }
+
+            // wait for the server sending date back
+            function waitserver1() {
+
+                if(Ifload === 0) {
+                    Ifload = 1;
+                    $("#loadPic").show("fade");
+                    console.log("waiting for the server sending date back");
+                    setTimeout("waitserver1()", 1500);
+
+                } else {
+                    
+                    console.log("receive date  loginStep1");
+                    $("#loadPic").hide("fade");
+                    Ifload = 0;
+                    loginStep1();
+                }
+            }
+
+            function waitserver2() {
+
+                if(Ifload === 0) {
+                    Ifload = 1;
+                    $("#loadPic").show("fade");
+                    console.log("waiting for the server sending date back");
+                    setTimeout("waitserver2()", 1500);
+
+                } else {
+                    console.log("receive date ,loginStep2");
+                    $("#loadPic").hide("fade");
+                    Ifload = 0;
+                    loginStep2();
+                }
+            }
+
+            function waitserver3() {
+
+                if(Ifload === 0) {
+                    Ifload = 1;
+                    $("#loadPic").show("fade");
+                    console.log("waiting for the server sending date back");
+                    setTimeout("waitserver3()", 1500);
+
+                } else {
+                    console.log("receive date ,Show WebSites");
+                    $("#loadPic").hide("fade");
+                    Ifload = 0;
+                    loginStep3();
+                }
+            }
+
+            function loginStep1() {
+                
+                if(Acctype === 1) {
+ $('<div id="temp1"style="top:0px;left:12px;position:relative">' + '<h3>' + '<b>' + username + '</h3>' + '</b>' + '</div>')
+ .appendTo('#header');
+   $("#loadPic").hide("fade");
+                    $("#temp1").show("fade");
+                    $("a#signinnote").hide();
+                    $("#inputemail").hide("");
+                    $("#enterEmailnote").hide("");
+                    $("#webexsite1").hide("");
+                    $("#enterSite").hide("");
+                    //$("#enterPswnote").show("explode");
+                    $("#showp").show("fade");
+                    document.getElementById("content").style.cssText = "top:55px;position:relative";
+                  // document.getElementById("enterPswnote").style.cssText = "color:black;font-size:90%;top:65px;left:10px;position:relative;display:none";
+                   
+                    // $("#enterPswnote").css("top","60px");
+                    $("#inputpassword").show();
+                    //$("#signbutton").hide("fade");
+                    $("#note1").show("fade");
+                    flag = 1;
+                    console.log("flag=" + flag);
+                  //  document.getElementById("signbutton").disabled = "disabled";
+                    $("#signbutton").css("color", "gainsboro");
+                    $("#but").css({
+                        "top" : "20px",
+                        "position" : "relative"
+                    });
+                }
+            }
+
+            function loginStep2() {
+
+                if( pwdRight = 0) {
+                    console.log("Server checked password:wrong!")
+                } else {
+$("#loadPic").hide("fade");
+                    console.log("Server checked password:right!")
+                    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                     Stream,Fox
+                     This is where i need to call your function to list all the site the user may use,
+                     response is an Array ,such as ["Webex Meeting Center","go.webex.com","SSO company","ssourl.com"]
+                     */
+                    NativeBridge.callNative("HTML_LOGIN_REQUEST_SITELIST_OF_ACCOUNT", [useremail], function(response) {
+                        for(var i = 0; i < response.length / 2; i++) {
+                            AccLink[i] = {
+                                "Name" : response[i * 2],
+                                "Url" : response[i * 2 + 1]
+                            }
+                        }
+                    });
+                   //  NativeBridge.callNative("HTML_LOGIN_REQUEST_SITELIST_OF_ACCOUNT", [useremail]);
+                     waitserver3();
+
+                }
+            }
+
+            function loginStep3() {
+$("#loadPic").hide("fade");
+                $("#section1").hide("fade");
+                $("#section2").show("explode");
+
+                //check if it's in test
+                if(AccLink.length === 0) {
+                    //Test Case1
+                    AccLink[0] = {
+                        "Name" : "Webex Meeting Center :",
+                        "Url" : "go.webex.com"
+                    };
+                    //Test Case2
+                    AccLink[1] = {
+                        "Name" : "SSO company :",
+                        "Url" : "ssourl.com"
+                    };
+                }
+
+                for(var i = 0; i < AccLink.length; i++) {
+                    $('<a href="html_meetinglist.html"><div class="Acc"   id='+AccLink[i].Url 
+                    + '>' + '<p11>'+' <h5  class="AccName" >' 
+                    + AccLink[i].Name + '</h5>' + ' <h6  class="AccUrl"  id='+AccLink[i].Url+'>' 
+                    + AccLink[i].Url + '</h6>' + '</p11>'+'</div></a>').appendTo('#SelectAcc');
+                }
+                $('<button type="submit" id="cancelbutton" style="color:gray;width:90%" ><h2><center>Cancel</center></h2></button>').
+                appendTo('#SelectAcc');
+            }
+
+function SiteClick(){
+
+}
+
+function OnTypeOfAccount(response){
+    Acctype=response;
+    Ifload = 1;
+    loginStep1();
+    NativeBridge.log("Native called OnTypeOfAccount successfully");
+}
+
+function OnCheckPWD(response){
+    pwdRight = response;
+    Ifload = 1;
+     loginStep2();
+    NativeBridge.log("Native called OnCheckPWD successfully");
+}
+
+function OnSiteList(response){
+    for(var i = 0; i < response.length / 2; i++) {
+                            AccLink[i] = {
+                                "Name" : response[i * 2],
+                                "Url" : response[i * 2 + 1]
+                            }
+                        }
+    Ifload = 1;
+     loginStep3();
+    NativeBridge.log("Native called OnSiteList successfully");
+}
+
+function test(){
+    NativeBridge.log("Native called test successfully");
+    console.log("Native Call Js test successfully");
+}
+  
+ 
+
+
+           $(document).ready(function() {
+
+ 
+$("div.Acc").live("touchstart",function(){
+  
+   
+
+  $(this).css({
+    "background":"dodgerblue",
+    "color":"white"});
+  
+console.log("touchstart");
+});
+
+$("div.Acc").live("touchend",function(){
+  
+   
+
+  $(this).css({
+    "background":"whitesmoke",
+    "color":"black"});
+  
+console.log("touchend");
+});
+
+ 
+$("div.Acc").live("mouseenter",function(){
+  
+   
+
+  $(this).css({
+    "background":"dodgerblue",
+    "color":"white"});
+  
+console.log("mouseenter");
+});
+
+$("div.Acc").live("mouseleave",function(){
+  
+   
+
+  $(this).css({
+    "background":"whitesmoke",
+    "color":"black"});
+  
+console.log("mouseleave");
+});
+
+   
+$("div.Acc").live("click",function(){
+  
+   
+
+ 
+console.log("siteclick"+ $(this).attr("id"));
+});
+
+
+                $("#signbutton").click(function() {
+                      
+              //  NativeBridge.nativeCall("test",112312312);
+
+                    // username = document.loginform.username.value;
+                    username = $("#username").val();
+                    password = $("#password").val();
+
+                    useremail.username = username;
+
+                    if(flag === 0) {
+                        if(checkacctimes === 0) {
+                            console.log("HTML_LOGIN_DETERMINE_TYPE_OF_ACCOUNT-user's email:" + username);
+                            checkacctimes = 1;
+
+                            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                             Stream,Fox
+                             This is where i need to call your function to determine the type of the account,
+                             response is the the send back argument .
+                             if default ,please set the "response" to 1 and send it back;
+                             */
+                            NativeBridge.callNative("HTML_LOGIN_DETERMINE_TYPE_OF_ACCOUNT", [useremail], function(response) {
+                                Acctype = reponse;
+                            });
+                         //    NativeBridge.callNative("HTML_LOGIN_DETERMINE_TYPE_OF_ACCOUNT", [useremail]);
+                        }
+ $("#loadPic").show("fade");
+ OnTypeOfAccount(1);
+                        /*
+                         while(Ifload===0){
+                         $("#loadPic").show("fade");
+                         window.setTimeout("Ifload=1",3000);
+
+                         }     */
+                       // waitserver1();
+                    }
+                    
+                    if(flag === 1) {
+                    // alert("123123123123");
+                        /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                         Stream,Fox
+                         This is where i need to call your function to check if the user password is right or not,
+                         response is a boolean ,true means right.
+                         */
+                        var pwdRight = 1;
+                        account.username = username;
+                        account.password = password;
+                        NativeBridge.callNative("HTML_LOGIN_CHECK_PWD", [account], function(response) {
+                            pwdRight = response;
+                        });
+                       //  NativeBridge.callNative("HTML_LOGIN_CHECK_PWD", [account]);
+                       // waitserver2();
+                        $("#loadPic").show("fade");
+                       OnCheckPWD(1);
+                       OnSiteList();
+                    }
+                });
+
+                $("#backbutton").click(function() {
+                    back();
+                })
+
+              
+// $("#Acc1").click(function(){
+//      $("#Acc1").hide();
+//     $("#Acc1").css({
+
+//                  "background" : "dodgerblue",
+//                  "color" : "white"
+// })
+    
+// })
+
+// $(".Acc").click(function(){
+// //     $(".Acc").css({
+
+// //                  "background" : "dodgerblue",
+// //                  "color" : "white"
+// // })
+//      $("#Acc1").hide();
+// })
+
+                $("a#signinnote").click(function() {
+                    document.getElementById("username").value = "";
+                    $("a#signinnote").hide();
+                    $("#but").css({
+                        "top" : "20px",
+                        "position" : "relative"
+                    });
+                    $("#enterEmailnote").hide("fade");
+                    $("#enterSite").show("fade");
+                    $("webexsite1").hide("fade");
+                    $("#emaillabel").hide("fade");
+                    $("#sitelabel").show("fade");
+                    document.getElementById("username").placeholder = "Sitename.webex.com";
+                    flag1 = 1;
+                });
+
+                $("a#signinnote1").click(function() {
+                    document.getElementById("username").value = "";
+                    $("a#signinnote").hide();
+                    // $("#temp1").hide("fade");
+                    $("#but").css({
+                        "top" : "20px",
+                        "position" : "relative"
+                    });
+                    $("#enterEmailnote").hide();
+                    $("#enterSite").show();
+                    $("webexsite1").hide();
+                    $("#emaillabel").hide();
+                    $("#enterPswnote").hide("fade");
+                    $("#note1").hide("explode");
+                    $("#showp").hide("fade");
+                    $("#inputpassword").hide("fade");
+                    $("#inputemail").show("fade");
+                    $("#sitelabel").show();
+                    document.getElementById("username").placeholder = "Sitename.webex.com";
+                    flag1 = 1;
+                    //flag =0;
+                });
+
+                $("#showpassword").click(function() {
+                    console.log("checkbox click");
+
+                    if(flag2 === 0) {
+                        document.getElementById("password").type = "text";
+                        console.log("showpassword");
+                        flag2 = 1;
+                    } else {
+                        document.getElementById("password").type = "password";
+                        console.log("notshowPSW");
+                        flag2 = 0;
+                    }
+                });
+               
+               
+
+            })
+
+
+        </script>
+    </head>
+    <body>
+        <div id="section1">
+            <div class="toolbar" id="header">
+                <h1> Sign In </h1>
+                <a class="toolbarLeftBtn" onclick=back()>Back</a> <p><a href="html_welcomehome.html">Next Page</a></p> 
+            </div>
+            <div id="content">
+                <div id="enternote">
+                 
+                    <h2 style="color:black;font-size:90%;top:36px;left:10px;position:relative" id="enterEmailnote"> Enter your email address : </h2>
+                    <h2 style="color:black;font-size:90%;top:36px;left:10px;position:relative;display:none" id="enterPswnote"> Enter your password : </h2>
+                    <h2 style="color:black;font-size:90%;top:36px;left:10px;position:relative;display:none" id="enterSite"> First enter your WebEx site URL. </h2>
+                </div>
+                <form name="loginform" >
+                    <div id="input1">
+                        <div id="inputemail" >
+                            <label style="color: black;top:10px;left:9px;position:relative;font-size:85%"  > <b id="emaillabel">Email</b> <b id="sitelabel" style="display:none">Site</b> </label>
+                            <input type="email" autocomplete="on"  name="username"  onblur="checkemail()" oninput="checkinfo()"
+                            id="username" value="foguo@cisco.com" style="width: 70%;left:25px;top:10px;position:relative;-webkit-border-radius:5px; border-style:hidden"
+                            placeholder="name@company.com"  />
+                            <br />
+                        </div>
+                        <div id="inputpassword" style="display:none">
+                            <label style="color: black;top:10px;left:9px;position:relative;font-size:85%" for="password"> <b >Password</b> </label>
+                            <input type="password" name="password" id="password" value="P@ss123" oninput="checkinfo1()" onblur="checkemail()"
+                            style="width: 60%;-webkit-border-radius:5px; top:10px;left:25px;position:relative;border-style:hidden" placeholder="Required" />
+                        </div>
+                    </div>
+                </form>
+                <div id="showp" >
+                    <input type="checkbox"  id="showpassword" />
+                    <small><label style="color: darkslategray" >show password</label>
+                </div>
+                <div id="note1">
+                    <img src="img_icon_infomation.png" id="inficon"></img>
+                    <small style="margin-left: 0px;"> We also found a site that requires you to <a href="#" id="signinnote1"><h3 style="color:dodgerblue;margin-left:0px"> sign in through your corporate website </h3></a></samll> </div >
+                        <div>
+                            <a href="#" style="color:dodgerblue;font-size:110%;" id="signinnote">
+                            <center>
+                                <h4 style="top:22px;left:8px;position:relative;font-size:115% "> Sign in through your corporate website</h4>
+                            </center> </a>
+                        </div>
+                        <div id="but">
+                            <button id="backbutton" style="color:gray">
+                                <h2>
+                                <center>
+                                    Back
+                                </center></h2>
+                            </button>
+                            <button type="submit" id="signbutton" style="color:gainsboro" >
+                                <h2>
+                                <center>
+                                    Next
+                                </center></h2>
+                            </button>
+                        </div>
+                        <div id="loadPic" style="display:none;position:relative;top:30px;left:105px">
+                            <h1>Loading......</h1>
+                        </div>
+                        <div id="enterWebexURL" style="display:none">
+                            <h2 style="color:black;font-size:110%" id="webexsite1" style="display:none">
+                            <center>
+                                First enter your WebEx Site URL
+                            </center></h2>
+                            <h2 style="color:black;font-size:110%;display:none;margin:5px;position:relative;top:10px" id="webexsite2">
+                            <div>
+                                <p>
+                                    You are required to sign in through your corporate website
+                                </p>
+                                <p>
+                                    First enter your WebEx Site URL
+                                </p>
+                            </div></h2>
+                            <center>
+                                <input type="text" autocomplete="on" name="username"
+                                id="WebexURL" value="" style="width: 95%;height:30px;top:8px;position:relative;-webkit-border-radius:5px; border-style:hidden"
+                                placeholder="              sitename.webex.com" />
+                            </center>
+                        </div>
+                        <p>
+                            <center>
+                                <button id="next1" style="color:gray">
+                                    <h2>
+                                    <center>
+                                        Next
+                                    </center></h2>
+                                </button>
+                            </center>
+                        </p>
+                </div>
+            </div>
+            <div id="section2">
+                <div>
+                    <h1 style="color:dimgray;border-bottom: 1px solid  #ccc;height:30px;width:110%" id="SelectAcc"> Select Account : </h1>
+                </div>
+            </div>
+            <footer></footer>
+    </body>
+</html>

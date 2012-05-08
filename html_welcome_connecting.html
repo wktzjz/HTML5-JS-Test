@@ -1,0 +1,133 @@
+<! DOCTYPE HTML>
+<html>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+	<link rel="stylesheet" href="css_screen-style.css" type="text/css" />
+	<title>Cisco WebEx for iPhone</title>
+	<script type="text/javascript">
+        var count = 0;
+        function rotate() {
+            var elem = document.getElementById('div1');
+            var elem2 = document.getElementById('div2');
+            var elem3 = document.getElementById('div3');
+            var elem4 = document.getElementById('div4');
+            var elem5 = document.getElementById('div5');
+            var elem6 = document.getElementById('div6');
+
+            elem.style.MozTransform = 'scale(0.3) rotate(' + count + 'deg)';
+            elem2.style.MozTransform = 'scale(0.3) rotate(' + count + 'deg)';
+            elem3.style.MozTransform = 'scale(0.3) rotate(' + count + 'deg)';
+            elem4.style.MozTransform = 'scale(0.3) rotate(' + count + 'deg)';
+            elem5.style.MozTransform = 'scale(0.3) rotate(' + count + 'deg)';
+            elem6.style.MozTransform = 'scale(0.3) rotate(' + count + 'deg)';
+
+            elem.style.WebkitTransform = 'scale(0.3) rotate(' + count + 'deg)';
+            elem2.style.WebkitTransform = 'scale(0.3) rotate(' + count + 'deg)';
+            elem3.style.WebkitTransform = 'scale(0.3) rotate(' + count + 'deg)';
+            elem4.style.WebkitTransform = 'scale(0.3) rotate(' + count + 'deg)';
+            elem5.style.WebkitTransform = 'scale(0.3) rotate(' + count + 'deg)';
+            elem6.style.WebkitTransform = 'scale(0.3) rotate(' + count + 'deg)';
+            if(count == 360) {
+                count = 0
+            }
+            count += 45;
+            window.setTimeout(rotate, 100);
+        }
+
+
+        window.setTimeout(rotate, 100);
+
+	</script>
+	<style type="text/css">
+		.bar1 {
+			-moz-transform: rotate(0deg) translate(0, -40px);
+			-webkit-transform: rotate(0deg) translate(0, -40px);
+			opacity: 0.12;
+		}
+		.bar2 {
+			-moz-transform: rotate(45deg) translate(0, -40px);
+			-webkit-transform: rotate(45deg) translate(0, -40px);
+			opacity: 0.25;
+		}
+		.bar3 {
+			-moz-transform: rotate(90deg) translate(0, -40px);
+			-webkit-transform: rotate(90deg) translate(0, -40px);
+			opacity: 0.37;
+		}
+		.bar4 {
+			-moz-transform: rotate(135deg) translate(0, -40px);
+			-webkit-transform: rotate(135deg) translate(0, -40px);
+			opacity: 0.30;
+		}
+		.bar5 {
+			-moz-transform: rotate(180deg) translate(0, -40px);
+			-webkit-transform: rotate(180deg) translate(0, -40px);
+			opacity: 0.62;
+		}
+		.bar6 {
+			-moz-transform: rotate(225deg) translate(0, -40px);
+			-webkit-transform: rotate(225deg) translate(0, -40px);
+			opacity: 0.75;
+		}
+		.bar7 {
+			-moz-transform: rotate(270deg) translate(0, -40px);
+			-webkit-transform: rotate(270deg) translate(0, -40px);
+			opacity: 0.87;
+		}
+		.bar8 {
+			-moz-transform: rotate(315deg) translate(0, -40px);
+			-webkit-transform: rotate(315deg) translate(0, -40px);
+			opacity: 1;
+		}
+		/* set up the three bar spinners */
+		#div1 {
+	position: relative;
+	width: 80px;
+	height: 80px;
+	margin: 80px auto 0 auto;
+	
+	-moz-border-radius: 100px;
+	-moz-transform: scale(0.3);
+	-webkit-transform: scale(0.3);
+	-webkit-animation-name: rotateThis;
+	-webkit-animation-duration: 1000ms;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+		}
+		#div1 div {
+			width: 10px;
+			height: 30px;
+			background: #FFF;
+			position: absolute;
+			top: 25px;
+			left: 35px;
+		}
+		/* shadows for the first spinner */
+		#div1 div {
+			-moz-box-shadow: black 0 0 4px;
+			-webkit-box-shadow: black 0 0 4px;
+		}
+	</style>
+	<body class="welcomebody">
+		<div class=webexLabel></div>
+		<div id='div1'>
+			<div class='bar1'></div>
+			<div class='bar2'></div>
+			<div class='bar3'></div>
+			<div class='bar4'></div>
+			<div class='bar5'></div>
+			<div class='bar6'></div>
+			<div class='bar7'></div>
+			<div class='bar8'></div>
+		</div><div id='div2'></div>
+		<div id='div3'></div>
+		<div id='div4'></div>
+		<div id='div5'></div>
+		<div id='div6'></div>
+		<div style="color:#FFF; ">
+			Connecting...
+		</div>
+	<br/>
+		<div class="ciscoLabel">
+	</body>
+</html>

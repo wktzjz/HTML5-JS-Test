@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>drag image ---@kangwan</title>
+  <style rel="stylesheet" type="text/css" >
+    /*#_outerDiv{
+      height:400px;
+      width:500px;
+      border:1px solid black;
+      position:relative;
+      overflow:hidden;
+    }*/
+  </style>
+  <script type="text/javascript">
+    function getElem (id) {
+      return document.getElementById(id);
+    }
+
+    function trimPX (_px) {
+      if(_px==null || _px=="")
+        return 0;
+      return parseInt(_px.substr(0, _px.lastIndexOf("px")));
+    }
+
+    function hitInRect (hitX, hitY, rcLeft, rcTop, rcWidth, rcHeight) {
+      return (hitX>=rcLeft && hitX<rcLeft+rcWidth && hitY>=rcTop && hitY<rcTop+rcHeight);
+    }
+
+    function outerDiv () {
+      return getElem("_outerDiv");
+    }
+
+    function imageDiv () {
+      return getElem("_imageDiv");
+    }
+
+    var dragging = false;
+    var startTop = 0; // top is a Key Word in Chrome and Opera
+    var startLeft = 0;
+    var dragPosY = 0;
+    var dragPosX = 0;
+    var u = navigator.userAgent, app = navigator.appVersion;
+    var detectbrowser=(u.match(/AppleWebKit.*Mobile.*/));
+    window.addEventListener("load", initPage, false);
+
+    function initPage () {
+    if(detectbrowser){
+    console.log("This is on mobile-Safari");
+      imageDiv().addEventListener("touchstart", // start moving image
+        function (event) {
+          startTop = trimPX(imageDiv().style.top);
+          startLeft = trimPX(imageDiv().style.left);
+          var width = trimPX(imageDiv().style.width);
+          var height = trimPX(imageDiv().style.height);
+
+          if (hitInRect(event.pageX, event.pageY, startLeft, startTop, width, height)) {
+            dragging = true;
+            dragPosX = event.pageX;
+            dragPosY = event.pageY;
+            event.preventDefault(); // disable default behavior of browser
+          }
+        },
+        false
+      );
+
+      imageDiv().addEventListener("touchmove", // moving image
+        function (event) {
+          if (dragging){
+            imageDiv().style.cursor="pointer";
+            imageDiv().style.top = parseInt(startTop)+(event.pageY - dragPosY) + "px";
+            imageDiv().style.left = parseInt(startLeft)+(event.pageX - dragPosX) + "px";
+          }
+          event.preventDefault();
+        },
+        false
+      );
+
+      imageDiv().addEventListener("touchend", // stop moving image
+        function (event) {
+          dragging = false;
+          imageDiv().style.cursor="default";          
+          event.preventDefault();
+        },
+        false
+      );
+    }
+    else{
+      console.log("This is on windows-Safari");
+      imageDiv().addEventListener("mousedown", // start moving image  
+        function (event) {  
+          startTop = trimPX(imageDiv().style.top);  
+          startLeft = trimPX(imageDiv().style.left);  
+          var width = trimPX(imageDiv().style.width);  
+          var height = trimPX(imageDiv().style.height);  
+  
+          if (hitInRect(event.clientX, event.clientY, startLeft, startTop, width, height)) {  
+            dragging = true;  
+            dragPosX = event.clientX;  
+            dragPosY = event.clientY;  
+            event.preventDefault(); // disable default behavior of browser  
+          }  
+        },  
+        false  
+      );  
+  
+      imageDiv().addEventListener("mousemove", // moving image  
+        function (event) {  
+          if (dragging){  
+            imageDiv().style.cursor="pointer";  
+            imageDiv().style.top = parseInt(startTop)+(event.clientY - dragPosY) + "px";  
+            imageDiv().style.left = parseInt(startLeft)+(event.clientX - dragPosX) + "px";  
+          }  
+          event.preventDefault();  
+        },  
+        false  
+      );  
+  
+      imageDiv().addEventListener("mouseup", // stop moving image  
+        function (event) {  
+          dragging = false;  
+          imageDiv().style.cursor="default";            
+          event.preventDefault();  
+        },  
+        false  
+      );  
+    }
+  }
+  </script>
+</head>
+<body>
+ 
+  <!-- <div id="_outerDiv"> -->
+    <div id="_imageDiv" style="z-index:0; position:relative; top:0px; left:0px; width:50px; height:100px;">
+      <img id="_imageObj" src="img_icon_home_ball.png"></img>
+    </div>
+  <!-- </div> -->
+</body>
+</html>

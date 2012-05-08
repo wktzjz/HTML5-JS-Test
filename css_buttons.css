@@ -1,0 +1,39 @@
+
+.greenButton
+{
+	border:0;
+	background-color: transparent;
+	background-origin:padding-box;
+    background:url(img_pic_button2.png) no-repeat;
+    color: #000000;
+    background-size:100% 100%;
+    overflow: hidden;
+    font-size: 18px;
+    font-weight: bold; 
+    font-family:inherit;
+    width:300px;
+    height:40px;
+}
+
+.greenButton:disabled
+{
+    background: url(img_pic_button3.png) no-repeat ;
+    color: #FFFFFF;
+}
+
+:hover.greenButton 
+{
+	background:url(img_pic_button1.png) no-repeat;
+    color: #FFFFFF;
+}
+
+:hover.greenButton:disabled
+{
+    background: url(img_pic_button3.png) no-repeat ;
+    color: #FFFFFF;
+}
+
+.oimg{
+	border: 0;
+	content: url(img_pic_button1.png);
+}

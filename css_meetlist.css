@@ -1,0 +1,104 @@
+
+ul {
+    left:0;
+    margin: 0;
+    width: 100%;
+    padding: 0;
+    vertical-align:middle;
+}
+.mainPanle{
+	position: relative;
+	top: 42px;
+	width:100%;
+}
+.onMeetLi[selected=true], .onMeetLi:hover
+{
+    background-image: url(img_listArrowSel.png),url(img_icon_green.png),url(img_selection.png) !important;
+    background-color: #194fdb !important;
+    background-repeat: no-repeat,no-repeat, repeat-x !important;	/* TG: !important */
+    background-position: right center,left center,left top !important;	/* TG: !important */
+    color: #FFFFFF !important;
+}
+.offMeetLi[selected=true], .offMeetLi:hover
+{
+	
+    background-image: url(img_listArrowSel.png),url(img_icon_gray.png), url(img_selection.png) !important;
+    background-color: #194fdb !important;
+    background-repeat: no-repeat,no-repeat, repeat-x !important;	/* TG: !important */
+    background-position: right center,left center,left top !important;	/* TG: !important */
+    color: #FFFFFF !important;
+}
+
+ul > li {
+    position: relative;
+    margin: 0;
+    padding:0;
+    border-bottom: 1px solid #E0E0E0;
+    vertical-align: middle;
+}
+
+ul > li.group {
+    position: relative;
+    border-top: 1px solid #7d7d7d;
+    border-bottom: 1px solid #999999;
+    margin: 0;
+    padding:0;
+    text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
+    color: #FFFFFF;
+	opacity:0.7;
+}
+
+ul > li.group:first-child 
+{
+    top: 0;
+    border-top: none;
+}
+
+.onMeetLi, .offMeetLi{
+    
+    display: block;
+    margin: 0; 
+    padding: 8px 32px 8px 30px;
+    text-decoration: none;
+    color: inherit;
+}
+.onMeetLi{
+	background: url(img_listArrow.png) no-repeat right center, url(img_icon_green.png) no-repeat left center;
+}
+
+.offMeetLi{
+	background: url(img_listArrow.png) no-repeat right center, url(img_icon_gray.png) no-repeat left center;
+}
+.dateField
+{
+	
+	background: url(img_titlebar_bg_date.png) repeat-x;
+	width:100%;
+	font-size:20px;
+	font-weight: bold;
+    text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
+    color: #ffffff;
+    padding: 3px 32px;
+}
+.todayField
+{
+	background: url(img_titlebar_bg_date.png) repeat-x;
+	width:100%;
+	font-weight: bold;
+	font-size:20px;
+    text-shadow: rgba(255, 255, 255, 1) 0 1px 0;
+    color: #0290d2;
+    padding: 3px 32px;
+}
+.meetTime{
+	font-weight: bold;
+	font-size:16px;
+}
+.meetName{
+	font-weight: bold;
+	font-size:18px;
+}
+.hostStr{
+	
+	font-size:16px;
+}

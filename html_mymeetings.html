@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Meeting List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <link rel="icon" type="image/png" href="icon_home_ball.png">
+  <link rel="apple-touch-icon" href="splash_webexball_m.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="stylesheet" href="css_toolbar.css" type="text/css" />  
+  <link rel="stylesheet" href="css_screen-style.css" type="text/css" />
+  <link rel="stylesheet" href="css_buttons.css" type="text/css" />
+  <link rel="stylesheet" href="css_meetlist.css" type="text/css" />
+  <script src="js_jquery-1.7.2.min.js"></script>
+  <script src="js_utilities.js"></script>
+  <script src="js_date.js"></script>  
+  <script src="js_mymeetings.js"></script>
+  <script type="text/javascript">
+	  function testAdd()
+	  {
+	  	 var meetingArray = new Array(4);
+	  	 var date = new Date();
+	  	 for (var i=0; i < meetingArray.length; i++) 
+	  	 {
+			 meetingArray[i] = new Object();
+			  meetingArray[i].meetStartTime = date.getTime();
+		  	 meetingArray[i].durHr = 2;
+		  	 meetingArray[i].meetName = "Test";
+		  	 meetingArray[i].hostStr = "xi wu";
+		  	 meetingArray[i].isStart = ((i % 2) == 0);
+		  	 if(meetingArray[i].isStart)
+		  	 date.add(1).days();
+	   	};
+	  	
+	 	 addMeetings(meetingArray);
+	  }
+  </script>
+</head>
+<body class="whitebody">
+    <div class="mainPanle" id = "mainpanle">
+	    
+	</div>
+	
+	
+    <div class="toolbar">
+        <h1>My Meetings</h1>
+        <a class="toolbarLeftBtn" onclick="deleteAllMeets()">Settings</a>
+        <a class="toolbarRightBtn" onclick="testAdd()">Test</a>
+    </div>
+</body>
+</html>

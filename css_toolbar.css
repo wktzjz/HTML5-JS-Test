@@ -1,0 +1,88 @@
+/* default-theme.css (c) 2007-10 by iUI Project Members, see LICENSE.txt for license */
+
+/***************************** Toolbar *****************************/
+.toolbar 
+{
+    position: fixed;
+    top:0px;
+    left:0px;
+    background: url(img_toolbar.png) #6d84a2 repeat-x;/**/
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    height: 42px;
+}
+
+.toolbar > h1 
+{
+    font-weight: bold;
+    font-size: 24px;
+    font-weight:bold;
+    overflow: hidden;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #FFFFFF;
+    margin: 6px 0;
+}
+
+
+.toolbarRightBtn
+{
+    position: absolute;
+    top:3px;
+    right: 6px;
+    -webkit-border-image: url(img_toolButton.png) 0 5 0 5;
+    -moz-border-image: url(img_toolButton.png) 0 5 0 5;
+    overflow: hidden;
+    padding: 0 3px;
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: bold; 
+    color: #FFFFFF;
+    text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+:hover.toolbarRightBtn 
+{
+    -webkit-border-image: url(img_blueButton.png) 0 5 0 5;
+    -moz-border-image: url(img_blueButton.png) 0 5 0 5;
+}
+
+
+
+.toolbarLeftBtn
+{
+    position: absolute;
+    top:3px;
+    left: 6px;
+    -webkit-border-image: url(img_toolButton.png) 0 5 0 5;
+    -moz-border-image: url(img_toolButton.png) 0 5 0 5;
+    overflow: hidden;
+    padding: 0 3px;
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: bold; 
+    color: #FFFFFF;
+    text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+:hover.toolbarLeftBtn 
+{
+    -webkit-border-image: url(img_blueButton.png) 0 5 0 5;
+    -moz-border-image: url(img_blueButton.png) 0 5 0 5;
+}

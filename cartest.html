@@ -1,0 +1,507 @@
+<html><head>
+      <title>cartest-box2d@kangwan@cisco.com</title>
+ </head>
+   <body>
+      <canvas id="canvas" width="600" height="300" style="position: absolute; left: 0; top: 0; z-index: -1;"></canvas>
+      press 'j' to jump ^ ^ <center><button onclick="history.go()">Restart</button></center>
+      
+   
+   <script type="text/javascript" src="Box2dWeb.js"></script>
+   <script type="text/javascript">
+         
+         
+           
+       var    b2Vec2       = Box2D.Common.Math.b2Vec2
+         	  ,	b2BodyDef    = Box2D.Dynamics.b2BodyDef
+         	  ,	b2Body       = Box2D.Dynamics.b2Body
+         	  ,	b2FixtureDef = Box2D.Dynamics.b2FixtureDef
+            ,	b2World      = Box2D.Dynamics.b2World
+            ,	b2PolygonShape    = Box2D.Collision.Shapes.b2PolygonShape
+            , b2CircleShape     = Box2D.Collision.Shapes.b2CircleShape
+            , b2RevoluteJointDef=Box2D.Dynamics.Joints.b2RevoluteJointDef
+            , b2MouseJointDef   =  Box2D.Dynamics.Joints.b2MouseJointDef
+            ,	b2DebugDraw = Box2D.Dynamics.b2DebugDraw
+            ,	b2Fixture   = Box2D.Dynamics.b2Fixture
+            , b2AABB      = Box2D.Collision.b2AABB;
+ 
+       
+         	
+         	
+         
+//create world
+         var world = new b2World(new b2Vec2(0, 15), true);
+
+
+// function of force, impulse, velocity
+function push() {
+//car.ApplyForce(new b2Vec2(-99,0), car.GetWorldCenter());
+car.SetLinearVelocity(new b2Vec2(-99,0))
+}
+ 
+function hit() {       
+car.ApplyImpulse(new b2Vec2(-99,0), car.GetWorldCenter())
+}
+
+function speed() {         
+car.SetLinearVelocity(new b2Vec2(-99,0))
+}
+
+function jump() {         
+car.SetLinearVelocity(new b2Vec2(0,-10))
+}
+
+
+function teleport() {
+car.SetPositionAndAngle(new b2Vec2(5,0),0);
+}
+              
+//  making a car
+//  two wheels         
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = b2Body.b2_dynamicBody;
+          bodyDef.userData = 'wheel'
+          var fixDef = new b2FixtureDef;
+          fixDef.density = 3;
+          fixDef.friction = 10;
+          fixDef.restitution = 0.1;
+          fixDef.shape = new b2CircleShape(0.3)
+          
+          var wheel1=world.CreateBody(bodyDef)
+          wheel1.CreateFixture(fixDef);
+
+          var wheel2=world.CreateBody(bodyDef)
+          wheel2.CreateFixture(fixDef);
+//  car body
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = b2Body.b2_dynamicBody;
+          bodyDef.position.Set(39,14)
+          fixDef.friction = 0.5;
+          fixDef.shape = new b2PolygonShape
+          fixDef.shape.SetAsArray([
+		     new b2Vec2(1 , -1.2),
+              
+		     new b2Vec2(1.5, -0.5),
+         new b2Vec2(1.3 , 0),
+		     new b2Vec2(-1.3, 0),
+		     new b2Vec2(-1.5, -0.5),
+              
+         new b2Vec2(-0.3 , -1.2)
+             ]);
+
+           
+          var car = world.CreateBody(bodyDef)
+          car.CreateFixture(fixDef);
+
+//joints
+
+          var myjoint = new b2RevoluteJointDef();
+   
+              myjoint.bodyA = car;
+              myjoint.bodyB = wheel1;
+              myjoint.localAnchorA.Set(-0.7,0); 
+              myjoint.enableMotor = true;
+      
+              myjoint.maxMotorTorque = 12;
+              myjoint.motorSpeed=-15;
+          world.CreateJoint(myjoint);
+          
+          
+          //var myjoint = new b2RevoluteJointDef();
+   
+              myjoint.bodyA = car;
+              myjoint.bodyB = wheel2;
+              myjoint.localAnchorA.Set(0.8,0); 
+          world.CreateJoint(myjoint);
+
+          
+          
+//ramp
+                 
+         bodyDef.type = b2Body.b2_staticBody;
+         var fixDef = new b2FixtureDef;
+         //fixDef.density = 10.0;                 
+         fixDef.friction = 0.5;                 
+         fixDef.restitution =0;   
+         fixDef.shape = new b2PolygonShape;
+         fixDef.shape.SetAsBox(10, 5);
+         bodyDef.position.Set(17.4, 19.8);
+        
+         
+          
+
+
+     var rampDef = new b2BodyDef;
+         rampDef.type = b2Body.b2_staticBody;
+         fixDef.shape.SetAsBox(25, 5);
+         rampDef.position.Set(25, 20);
+          
+         world.CreateBody(rampDef).CreateFixture(fixDef);
+         
+         fixDef.shape.SetAsBox(9, 5);
+         rampDef.position.Set(3, 15);
+          
+         //world.CreateBody(rampDef).CreateFixture(fixDef);
+         
+         
+         
+         
+         
+         
+ // create greek temple from line 60 to 154
+         function temple(){
+//Set property for temple
+         var fixDef = new b2FixtureDef;
+         fixDef.density = 3000.0;
+         fixDef.friction = 100;
+         fixDef.restitution =0.2;
+         
+         var bodyDef = new b2BodyDef;
+//Triangle  roof clockwise
+           bodyDef.type = b2Body.b2_dynamicBody;
+           fixDef.shape = new b2PolygonShape;
+	      fixDef.shape.SetAsArray([
+		  new b2Vec2(4.7 , 0),
+		  new b2Vec2(-4.7, 0),
+		  new b2Vec2(0, -1.2),
+          ]);
+         bodyDef.position.Set(6.75,1)
+         world.CreateBody(bodyDef).CreateFixture(fixDef); 
+//1st below roof 
+         fixDef.shape.SetAsBox(4.25,0.1);
+         bodyDef.position.Set(6.75,3);
+         world.CreateBody(bodyDef).CreateFixture(fixDef); 
+//2
+         fixDef.shape.SetAsBox(4.05,0.2);
+         bodyDef.position.Set(6.75,3.5);
+         world.CreateBody(bodyDef).CreateFixture(fixDef); 
+//box 3
+         fixDef.shape.SetAsBox(4.1,0.03);
+         bodyDef.position.Set(6.75,4);
+         world.CreateBody(bodyDef).CreateFixture(fixDef); 
+//box 4
+         fixDef.shape.SetAsBox(4.05,0.15);
+         bodyDef.position.Set(6.75,4.5);
+         world.CreateBody(bodyDef).CreateFixture(fixDef); 
+
+//zhutou1 cw
+          fixDef.shape.SetAsArray([
+		  new b2Vec2(0.35 , 0),
+		  new b2Vec2(0.35, 0.15),
+		  new b2Vec2(0.27, 0.2),
+          new b2Vec2(-0.27 , 0.2),
+		  new b2Vec2(-0.35, 0.15),
+		  new b2Vec2(-0.35, 0.0),
+		  ]);
+         bodyDef.position.Set(3,6)
+         
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+//zhutou2 cw
+         bodyDef.position.Set(4.5,6)
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+//zhutou3 cw
+         bodyDef.position.Set(6,6)
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+//zhutou4 cw
+         bodyDef.position.Set(7.5,6)
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+//zhutou5 cw
+         bodyDef.position.Set(9,6)
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+//zhutou6 cw
+         bodyDef.position.Set(10.5,6)
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+//column A        
+         fixDef.shape.SetAsBox(0.2,1.5);
+         bodyDef.position.Set(3,8);
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+//column B
+         bodyDef.position.Set(4.5,8);
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+//column C
+         bodyDef.position.Set(6,8);
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+//column D
+         bodyDef.position.Set(7.5,8);
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+//column E
+        bodyDef.position.Set(9,8);
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+//column F
+        bodyDef.position.Set(10.5,8);
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+// step of temple
+//step a
+         fixDef.shape.SetAsBox(4.1,0.1);
+         bodyDef.position.Set(6.75,9.5);
+         world.CreateBody(bodyDef).CreateFixture(fixDef); 
+//step b
+         fixDef.shape.SetAsBox(4.3,0.1);
+         bodyDef.position.Set(6.75,10.5);
+         world.CreateBody(bodyDef).CreateFixture(fixDef); 
+//step c
+         fixDef.shape.SetAsBox(4.5,0.1);
+         bodyDef.position.Set(6.75,11.5);
+         world.CreateBody(bodyDef).CreateFixture(fixDef); 
+         }
+
+  
+ 
+var listener = new Box2D.Dynamics.b2ContactListener;
+listener. BeginContact = function(contact) {
+
+  console.log(contact.GetFixtureA().GetBody().GetUserData());
+  console.log(contact.GetFixtureB().GetBody().GetUserData());
+
+
+
+if (contact.GetFixtureA().GetBody().GetUserData()== 'wheel' || contact.GetFixtureB().GetBody().GetUserData()== 'wheel' )
+ onground = true;// don't use var! 
+
+ 
+
+}
+
+
+
+listener. EndContact = function(contact) {
+
+  console.log(contact.GetFixtureA().GetBody().GetUserData());
+  console.log(contact.GetFixtureB().GetBody().GetUserData());
+
+
+
+if (contact.GetFixtureA().GetBody().GetUserData()== 'wheel' || contact.GetFixtureB().GetBody().GetUserData()== 'wheel' )
+ onground = false;// don't use var! 
+
+ 
+
+}
+
+
+
+
+
+ 
+  
+  
+  
+  
+  
+        function swtkeyboard(e){
+var evtobj=window.event? event : e //distinguish between IE's explicit event object (window.event) and Firefox's implicit.
+var unicode=evtobj.charCode? evtobj.charCode : evtobj.keyCode
+var  actualkey=String.fromCharCode(unicode)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if (actualkey=="m")
+temple();
+
+
+if (actualkey=="r")
+history.go();
+
+
+if (actualkey=="f")
+push();
+
+if (actualkey=="i")
+hit();
+
+if (actualkey=="v")
+speed();
+
+if (actualkey=="j" && onground )
+jump();
+
+
+if (actualkey=="t")
+teleport();
+
+
+} 
+  
+         
+//setup debug draw
+         var debugDraw = new b2DebugDraw();
+			 debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
+			 debugDraw.SetDrawScale(20.0);
+			 debugDraw.SetFillAlpha(0.5);
+			 debugDraw.SetLineThickness(1.0);
+			 debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+         world.SetDebugDraw(debugDraw);
+         
+         window.setInterval(update, 1000 / 60);
+         
+         
+         
+ //mouse
+         
+         var mouseX, mouseY, mousePVec, isMouseDown, selectedBody, mouseJoint;
+         var canvasPosition = getElementPosition(document.getElementById("canvas"));
+         
+         document.addEventListener("mousedown", function(e) {
+            isMouseDown = true;
+            handleMouseMove(e);
+            document.addEventListener("mousemove", handleMouseMove, true);
+         }, true);
+         
+         document.addEventListener("mouseup", function() {
+            document.removeEventListener("mousemove", handleMouseMove, true);
+            isMouseDown = false;
+            mouseX = undefined;
+            mouseY = undefined;
+         }, true);
+         
+         function handleMouseMove(e) {
+            mouseX = (e.clientX - canvasPosition.x) / 20;
+            mouseY = (e.clientY - canvasPosition.y) / 20;
+         };
+         
+         function getBodyAtMouse() {
+            mousePVec = new b2Vec2(mouseX, mouseY);
+            var aabb = new b2AABB();
+            aabb.lowerBound.Set(mouseX - 0.001, mouseY - 0.001);
+            aabb.upperBound.Set(mouseX + 0.001, mouseY + 0.001);
+            
+            // Query the world for overlapping shapes.
+
+            selectedBody = null;
+            world.QueryAABB(getBodyCB, aabb);
+            return selectedBody;
+         }
+
+         function getBodyCB(fixture) {
+            if(fixture.GetBody().GetType() != b2Body.b2_staticBody) {
+               if(fixture.GetShape().TestPoint(fixture.GetBody().GetTransform(), mousePVec)) {
+                  selectedBody = fixture.GetBody();
+                  return false;
+               }
+            }
+            return true;
+         }
+
+          
+         
+//update
+         
+         function update() {
+         
+          if(isMouseDown && (!mouseJoint)) {
+               var body = getBodyAtMouse();
+               if(body) {
+                  var md = new b2MouseJointDef();
+                  md.bodyA = world.GetGroundBody();
+                  md.bodyB = body;
+                  md.target.Set(mouseX, mouseY);
+                  md.collideConnected = true;
+                  md.maxForce = 300.0 * body.GetMass();
+                  mouseJoint = world.CreateJoint(md);
+                  body.SetAwake(true);
+               }
+            }
+            
+            if(mouseJoint) {
+               if(isMouseDown) {
+                  mouseJoint.SetTarget(new b2Vec2(mouseX, mouseY));
+               } else {
+                  world.DestroyJoint(mouseJoint);
+                  mouseJoint = null;
+               }
+            }
+
+         
+         
+         
+         
+         
+         world.SetContactListener(listener);
+         
+         
+            world.Step(1 / 60, 10, 10);
+            world.DrawDebugData();
+            world.ClearForces();
+         
+  
+
+document.onkeypress=swtkeyboard  
+
+
+
+
+ //position of car
+ var whereCar=car.GetWorldCenter()         
+    
+// victory message!!
+if (whereCar.x<-2 || whereCar.x>40 )
+{
+
+car.SetLinearVelocity(new b2Vec2(0,0));
+car.SetAngularVelocity(0);
+wheel1.SetLinearVelocity(new b2Vec2(0,0));
+wheel1.SetAngularVelocity(0);
+wheel2.SetLinearVelocity(new b2Vec2(0,0));
+wheel2.SetAngularVelocity(0);
+
+car.SetPosition(new b2Vec2(35,15));
+wheel1.SetPosition(new b2Vec2(35,15));
+wheel2.SetPosition(new b2Vec2(35,15));
+
+
+
+}      
+    
+   
+                
+            };
+              
+         //helpers
+         
+         //http://js-tut.aardon.de/js-tut/tutorial/position.html
+         function getElementPosition(element) {
+            var elem=element, tagname="", x=0, y=0;
+           
+            while((typeof(elem) == "object") && (typeof(elem.tagName) != "undefined")) {
+               y += elem.offsetTop;
+               x += elem.offsetLeft;
+               tagname = elem.tagName.toUpperCase();
+
+               if(tagname == "BODY")
+                  elem=0;
+
+               if(typeof(elem) == "object") {
+                  if(typeof(elem.offsetParent) == "object")
+                     elem = elem.offsetParent;
+               }
+            }
+
+            return {x: x, y: y};
+         }
+
+
+             
+    
+   
+   </script>
+   
+   
+</body></html>

@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+        <title>jQTouch &beta;</title>
+        <style type="text/css" media="screen">@import "css_apple.css";</style>
+        <style type="text/css" media="screen">@import "css_meetinglist.css";</style>
+        <script src="js_zepto.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js_jqtouch.min.js" type="text/javascript" charset="utf-8"></script>   
+        <script type="text/javascript" charset="utf-8">
+        $(function(){
+       	 $('.toolbar a,footer a').bind('click',function(){
+       		  //alert("1111");
+          	   var address = document.location.href;
+          	   //alert(address);
+          	   //alert(document.location.href);
+          	   if(address.search(/#home/) != -1){
+          		   $("footer").css('display','none');
+          		  // alert("111");
+          	   }else{
+          		   $("footer").css('display','block');
+          		   //alert("222");
+          	   }
+       	 });
+       	$('.table tr').bind('click',function(){
+       		bottomBar();
+        	window.location.href="#info";
+     	 });
+       	
+       	$('input[type="button"]').bind('click',function(){
+       		var date = document.getElementsByName("date");
+       		var datetime = document.getElementsByName("datetime");
+       		var starts = document.getElementsByName("starts");
+       		var duration = document.getElementsByName("duration");
+       		starts[0].value = datetime[0].value;
+       		duration[0].value = date[0].value;
+       		window.location.href="#add";
+       	});
+      
+        
+        $('#time #stime').bind('click',function(){
+       		//bottomBar();
+        	window.location.href="#setTime";
+     	 });
+       });
+     	
+       $("document").ready(function(){
+        	var address = document.location.href;
+           	if(address.search(/#home/) != -1){
+           		$("footer").css('display','block');
+           	}else{
+           		$("footer").css('display','none');
+           	}
+           });
+       $.jQTouch({
+            icon: 'icon.png',
+            startupScreen: 'img/startup.png'
+            });
+       function bottomBar(){
+        	// alert("1111");
+        	var address = document.location.href;
+        	//alert(address);
+        	   //alert(document.location.href);
+        	if(address.search(/#home/) != -1){
+        		$("footer").css('display','none');
+        		  // alert("111");
+        	 }else{
+        		$("footer").css('display','block');
+        		   //alert("222");
+        	  }
+           }
+          /* function test(event){
+        	   var address = document.location.href;
+        	   alert(address);
+           	   if(address.search(/#home/) != -1){
+           		   $("footer").css('display','block');
+           	   }
+           	event.stopPropagation();
+           }
+            function fun(event){
+            	bottomBar();
+            	window.location.href="#info";
+            	//preventDefault();
+            	event.stopPropagation();
+            	//event.cancleBubble=true;
+            }*/
+            
+            /*在iPhone上模拟:hover*/
+            var myLinks = document.getElementsByTagName('tr');
+            	for(var i = 0; i < myLinks.length; i++){
+            	   myLinks[i].addEventListener('touchstart', function(){this.className = "hover";}, false);
+            	   myLinks[i].addEventListener('touchend', function(){this.className = "";}, false);
+            	}
+            	
+            /*隐藏地址栏*/
+            addEventListener("load", function(){
+            		setTimeout(hideAddressbar, 0);
+            				   }, false);
+            function hideAddressbar(){
+            	window.scrollTo(0, 1);
+            	}
+            
+           
+           
+        </script>
+    </head>
+    <body >
+        <div id="jqt">
+            <div id="home" >
+             	<div class="toolbar">
+                    <h1>My Meetings</h1>
+                    <a href="#settings" class="button leftButton flip">Settings</a>
+                    <a href="#add" class="button add slideup">+</a>
+                </div>
+            	<div>
+                <div class="bar" >
+					<span class="date">Mon</span>
+					<span class="year">Apr 4 2011</span>
+				</div>
+                <div id="test">
+		             <table class="table">
+						<tr class="template" >
+							<td class="stateGreen"></td>
+							<td class="content">8:00 to 9:00<br>Weekly Team Building<br>Phil Martin</td>
+							<td class="arrow"></td>
+						</tr>
+						<tr class="template" >
+							<td class="stateGreen"></td>
+							<td class="content">8:00 to 9:00<br>Weekly Team Building<br>Phil Martin</td>
+							<td class="arrow"></td>
+						</tr>
+					</table>
+                </div>
+                <div class="bar" >
+					<span class="date">Mon</span>
+					<span class="year">Apr 4 2011</span>
+				</div>
+                <div id="test">
+		             <table class="table">
+						<tr class="template" >
+							<td class="stateGreen" ></td>
+							<td class="content">8:00 to 9:00<br>Weekly Team Building<br>Phil Martin</td>
+							<td class="arrow"></td>
+						</tr>
+						<tr class="template" >
+							<td class="stateGreen"></td>
+							<td class="content">8:00 to 9:00<br>Weekly Team Building<br>Phil Martin</td>
+							<td class="arrow"></td>
+						</tr>
+					</table>
+                </div>
+                </div>
+                
+               
+            </div>
+
+            <div id="add">
+                <div class="toolbar">
+                    <h1>Schedule Meeting</h1>
+                    <a href="#add" class="cancel">Cancel</a>
+                    <a class="button">Start</a>
+                </div>
+                <form id="time">
+                    <ul class="rounded">
+                        <li class="arrow"><input type="text" id="label" name="Label" class="mode" placeholder="%Profile Name%'s Meeting"></li>
+                    </ul>
+                    
+                    <ul class="rounded" id="stime">
+                        <li >Starts<input type="text" name="starts" class="mode1" placeholder="Starts"><div class="arrow1"></div>Duration<input type="text" name="duration" class="mode2" placeholder="Duration" class="arrow"></li>
+                    </ul>
+                    
+                    <ul class="rounded">
+                        <li class="arrow">Invitees<input type="text"  class="mode3" placeholder="Invitees" class="arrow"></li>
+                    </ul>
+                    
+                    <ul class="rounded">
+                        <li class="arrow">Password<input type="text"  class="mode4" placeholder="Password" ></li>
+                    </ul>
+                </form>
+            </div>
+
+            <div id="info">
+                <div class="toolbar">
+                    <h1>About</h1>
+                    <a href="#add" class="cancel">Cancel</a>
+                </div>
+                <div class="info">
+                   Author: Jiajie Shen.
+                </div>
+            </div>
+            
+            <div id="setTime">
+            	<div class="toolbar">
+                    <h1>Set Time</h1>
+                    <a href="#add" class="cancel">Cancel</a>
+                </div>
+                <form name="form1" method="post" action="#add">
+            	Date:<input type="datetime" name="datetime"><br>
+            	Duration:<input type="date" name="date">
+            	<input type="button"  value="confirm"> 
+            	</form>
+            	
+            </div>
+            
+            <div id="settings">
+            	<div class="toolbar">
+            		<h1>Settings</h1>
+            		<a href="#home" class="button flip">Done</a>
+            	</div>
+            	<form>
+            		<ul class="rounded">
+                        <li class="arrow">Account</li>
+                    </ul>
+                    <ul class="rounded">
+                        <li class="arrow">Shake to Reload</li>
+                        <li class="arrow">Meeting HandOff</li>
+                    </ul>
+                    <ul class="rounded">
+                        <li class="arrow">About</li>
+                        <li class="arrow">More</li>
+                    </ul>
+            	</form>
+            </div>
+        </div>
+          <footer >
+               <a href="#info" class="button leftButton">Today</a>
+               <a href="#info"  class="button">Join By Number</a>
+          </footer>
+         
+    </body>
+</html>
